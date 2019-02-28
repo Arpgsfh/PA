@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "156548349992",
+    "firebase_url": "https://kpsp-app-ac28f.firebaseio.com",
+    "project_id": "kpsp-app-ac28f",
+    "storage_bucket": "kpsp-app-ac28f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156548349992:android:3127a12001c15273",
+        "android_client_info": {
+          "package_name": "org.d3ifcool.denver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156548349992-ir10oqskiovfcmjo5l18so9ki1fbjmtm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.d3ifcool.denver",
+            "certificate_hash": "70f203fcaafe3d113fae55c5657f8fc7c1f52da0"
+          }
+        },
+        {
+          "client_id": "156548349992-fnnd1m70omthnalpmd0pcon8m44n2pf0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkkaDlbakQSKxqqxcfob-dARHOXOPsC_c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156548349992-fnnd1m70omthnalpmd0pcon8m44n2pf0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
