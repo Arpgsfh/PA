@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class TestActivity extends AppCompatActivity {
 
+    TextView noPertanyaan;
     TextView pertanyaan;
     RadioGroup radioGroup;
     Button btnLanjut;
@@ -42,6 +43,7 @@ public class TestActivity extends AppCompatActivity {
 
         setPertanyaan(nomor);
 
+        noPertanyaan = (TextView) findViewById(R.id.noPertanyaan);
         pertanyaan = (TextView) findViewById(R.id.pertanyaan);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         btnLanjut = (Button) findViewById(R.id.button);
@@ -50,6 +52,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 nomor++;
+                reset();
                 setPertanyaan(nomor);
 
             }
@@ -61,7 +64,7 @@ public class TestActivity extends AppCompatActivity {
         btnLanjut.setVisibility(View.INVISIBLE);
     }
 
-    private void setPertanyaan(int nomor){
+    private void setPertanyaan(final int nomor){
         if (nomor<=10){
             DatabaseReference myRef = database.getReference("Test").child(String.valueOf(umur)).child(String.valueOf(nomor));
 
@@ -69,8 +72,8 @@ public class TestActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String value = dataSnapshot.getValue(String.class);
+                    noPertanyaan.setText(String.valueOf(nomor));
                     pertanyaan.setText(value);
-                    reset();
                 }
 
                 @Override

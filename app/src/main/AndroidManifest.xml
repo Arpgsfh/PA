@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.d3ifcool.denver">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StimulasiActivity"></activity>
-        <activity android:name=".RiwayatActivity" />
+        <activity android:name=".StimulasiActivity"
+            android:label="Stimulasi"
+            android:theme="@style/AppThemeAction"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+        <activity android:name=".RiwayatActivity"
+            android:label="Riwayat"
+            android:theme="@style/AppThemeAction"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +39,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".PilihUmurActivity" />
-        <activity android:name=".TestActivity" />
+        <activity android:name=".TestActivity"
+            android:label="Test"
+            android:theme="@style/AppThemeAction"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
         <activity android:name=".PenilaianActivity" />
     </application>
 

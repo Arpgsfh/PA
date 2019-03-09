@@ -39,17 +39,14 @@ public class PenilaianActivity extends AppCompatActivity {
 
         if (nilai>8){
             penilaian.setText("Selamat, perkembangan anak Anda Sesuai.");
-            penilaian.setBackgroundColor(getResources().getColor(R.color.green));
             button.setText("Lanjut");
             intent1 = new Intent(PenilaianActivity.this, MainActivity.class);
         }else if (nilai>6){
             penilaian.setText("Pantau terus perkembangan anak Anda. Cari Kemungkinan Penyakit, ulangi test 2 Minggu lagi. Jika masih Meragukan, segera rujuk ke RS atau Poli Anak");
-            penilaian.setBackgroundColor(getResources().getColor(R.color.yellow));
             intent1 = new Intent(PenilaianActivity.this, StimulasiActivity.class);
             intent1.putExtra("UMUR",umur);
         }else{
             penilaian.setText("Ada penyimpangan dalam perkembangan anak Anda, segera rujuk ke RS atau Poli Anak");
-            penilaian.setBackgroundColor(getResources().getColor(R.color.red));
             intent1 = new Intent(PenilaianActivity.this, StimulasiActivity.class);
             intent1.putExtra("UMUR",umur);
         }

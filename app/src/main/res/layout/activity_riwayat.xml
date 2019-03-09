@@ -12,9 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="@color/colorPrimaryDark">
+        android:paddingLeft="15dp"
+        android:showDividers="middle"
+        android:divider="#ffffff"
+        android:paddingRight="15dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:background="#80cfd8dc">
 
         <TextView
             android:layout_width="0dp"
@@ -22,7 +26,6 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="Tanggal"
-            android:textColor="#ffffff"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="0dp"
@@ -30,7 +33,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Bulan"
-            android:textColor="#ffffff"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="0dp"
@@ -38,7 +40,6 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="Keterangan"
-            android:textColor="#ffffff"
             android:textStyle="bold"/>
 
     </LinearLayout>
@@ -46,7 +47,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/riwayat_bg"
         android:scrollbars="vertical" />
 
 </LinearLayout>
