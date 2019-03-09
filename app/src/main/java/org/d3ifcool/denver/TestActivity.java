@@ -24,7 +24,6 @@ public class TestActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     Button btnLanjut;
 
-
     FirebaseDatabase database;
 
     int umur;
@@ -80,16 +79,11 @@ public class TestActivity extends AppCompatActivity {
                 }
             });
         }else {
-            DatabaseReference myRef = database.getReference("Riwayat");
-            Riwayat riwayat = new Riwayat(String.valueOf(umur), String.valueOf(nilai));
-            String id = myRef.push().getKey();
-            myRef.child(id).setValue(riwayat);
-
             Intent intent = new Intent(TestActivity.this, PenilaianActivity.class);
             intent.putExtra("NILAI",nilai);
+            intent.putExtra("UMUR",umur);
             startActivity(intent);
-
-
+            finish();
         }
     }
 

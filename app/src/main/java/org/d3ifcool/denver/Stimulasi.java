@@ -1,14 +1,23 @@
 package org.d3ifcool.denver;
 
 public class Stimulasi {
-    String tahapan, stimulasi;
+    String jenis, tahapan, stimulasi;
 
     public Stimulasi() {
     }
 
-    public Stimulasi(String tahapan, String stimulasi) {
+    public Stimulasi(String jenis, String tahapan, String stimulasi) {
+        this.jenis = jenis;
         this.tahapan = tahapan;
         this.stimulasi = stimulasi;
+    }
+
+    public String getJenis() {
+        return jenis;
+    }
+
+    public void setJenis(String jenis) {
+        this.jenis = jenis;
     }
 
     public String getTahapan() {

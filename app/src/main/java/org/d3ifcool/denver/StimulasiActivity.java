@@ -34,7 +34,7 @@ public class StimulasiActivity extends AppCompatActivity {
         Intent intent = getIntent();
         umur = intent.getIntExtra("UMUR",0);
 
-        databaseStimulasi = FirebaseDatabase.getInstance().getReference("Stimulasi").child("3").child("Gerak Kasar");
+        databaseStimulasi = FirebaseDatabase.getInstance().getReference("Stimulasi").child(String.valueOf(umur));
 
         mAdapter = new StimulasiAdapter(this, stimulasis);
 

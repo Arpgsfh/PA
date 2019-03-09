@@ -34,6 +34,8 @@ public class StimulasiAdapter extends RecyclerView.Adapter<StimulasiAdapter.Stim
 
         holder.tahapanTextView.setText(currentStimulasi.getTahapan());
         holder.stimulasiTextView.setText(currentStimulasi.getStimulasi());
+        holder.jenisTextView.setText(currentStimulasi.getJenis());
+
     }
 
     @Override
@@ -45,12 +47,14 @@ public class StimulasiAdapter extends RecyclerView.Adapter<StimulasiAdapter.Stim
 
         public TextView tahapanTextView;
         public TextView stimulasiTextView;
+        public TextView jenisTextView;
 
         public StimulasiViewHolder(View itemView) {
             super(itemView);
 
             tahapanTextView = (TextView) itemView.findViewById(R.id.list_tahapan);
             stimulasiTextView = (TextView) itemView.findViewById(R.id.list_stimulasi);
+            jenisTextView = (TextView) itemView.findViewById(R.id.list_jenis);
         }
     }
 }

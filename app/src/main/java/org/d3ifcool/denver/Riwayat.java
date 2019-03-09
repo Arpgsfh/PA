@@ -1,14 +1,24 @@
 package org.d3ifcool.denver;
 
 public class Riwayat {
-    String umur, nilai, tanggal;
+    String tanggal, umur;
+    int nilai;
 
     public Riwayat() {
     }
 
-    public Riwayat(String umur, String nilai) {
+    public Riwayat(String tanggal, String umur, int nilai) {
+        this.tanggal = tanggal;
         this.umur = umur;
         this.nilai = nilai;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
     }
 
     public String getUmur() {
@@ -19,11 +29,11 @@ public class Riwayat {
         this.umur = umur;
     }
 
-    public String getNilai() {
+    public int getNilai() {
         return nilai;
     }
 
-    public void setNilai(String nilai) {
+    public void setNilai(int nilai) {
         this.nilai = nilai;
     }
 }
