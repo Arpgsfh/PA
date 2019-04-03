@@ -42,7 +42,8 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.RiwayatV
         }else {
             holder.nilaiTextView.setText("Menyimpang");
         }
-        holder.umurTextView.setText(currentRiwayat.getUmur());
+        holder.namaTextView.setText(currentRiwayat.getNama());
+        holder.umurTextView.setText("bulan ke- "+currentRiwayat.getUmur());
         holder.tanggalTextView.setText(currentRiwayat.getTanggal());
     }
 
@@ -53,15 +54,14 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.RiwayatV
 
     public class RiwayatViewHolder extends RecyclerView.ViewHolder{
 
-        public LinearLayout linearLayout;
+        public TextView namaTextView;
         public TextView umurTextView;
         public TextView nilaiTextView;
         public TextView tanggalTextView;
 
         public RiwayatViewHolder(View itemView) {
             super(itemView);
-
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.linear_item_view);
+            namaTextView = (TextView) itemView.findViewById(R.id.list_nama_riwayat);
             umurTextView = (TextView) itemView.findViewById(R.id.list_umur_riwayat);
             nilaiTextView = (TextView) itemView.findViewById(R.id.list_nilai_riwayat);
             tanggalTextView = (TextView) itemView.findViewById(R.id.list_tanggal_riwayat);

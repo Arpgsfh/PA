@@ -19,6 +19,7 @@ public class PilihUmurActivity extends AppCompatActivity {
     public static final String PROFILE = "profile";
     String idProfil;
     String namaProfile;
+    String umurProfile;
 
     int menu;
 
@@ -27,12 +28,15 @@ public class PilihUmurActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pilih_umur);
 
         TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
+        TextView umurAnak = (TextView) findViewById(R.id.umurTextView);
 
         SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
         idProfil = prefs.getString("ID", null);
         namaProfile = prefs.getString("NAMA", null);
+        umurProfile = prefs.getString("UMUR", null);
 
         namaAnak.setText(namaProfile);
+        umurAnak.setText(umurProfile);
 
         Intent intent = getIntent();
         menu = intent.getIntExtra("MENU",0);

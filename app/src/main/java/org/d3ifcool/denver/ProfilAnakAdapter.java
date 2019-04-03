@@ -44,6 +44,7 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
                 SharedPreferences.Editor editor = context.getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
                 editor.putString("ID", currentProfil.getId());
                 editor.putString("NAMA", currentProfil.getNama());
+                editor.putString("UMUR", currentProfil.getTglLahir());
                 editor.commit();
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);

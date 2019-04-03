@@ -1,6 +1,7 @@
 package org.d3ifcool.denver;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,12 +16,15 @@ import java.util.Date;
 
 public class PenilaianActivity extends AppCompatActivity {
 
+    public static final String PROFILE = "profile";
+
     TextView penilaian;
 
     FirebaseDatabase database;
 
     Intent intent1;
 
+    String nama;
     int umur, nilai;
 
     @Override
@@ -29,6 +33,9 @@ public class PenilaianActivity extends AppCompatActivity {
         setContentView(R.layout.activity_penilaian);
 
         database = FirebaseDatabase.getInstance();
+
+        SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
+        nama = prefs.getString("NAMA", null);
 
         final Intent intent = getIntent();
         nilai = intent.getIntExtra("NILAI",0);
@@ -58,7 +65,7 @@ public class PenilaianActivity extends AppCompatActivity {
                 String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
                 DatabaseReference myRef = database.getReference("Riwayat");
-                Riwayat riwayat = new Riwayat(date, String.valueOf(umur), nilai);
+                Riwayat riwayat = new Riwayat(nama, date, String.valueOf(umur), nilai);
                 String id = myRef.push().getKey();
                 myRef.child(id).setValue(riwayat);
 

@@ -1,16 +1,21 @@
 package org.d3ifcool.denver;
 
 public class Riwayat {
-    String tanggal, umur;
+    String nama, tanggal, umur;
     int nilai;
 
     public Riwayat() {
     }
 
-    public Riwayat(String tanggal, String umur, int nilai) {
+    public Riwayat(String nama, String tanggal, String umur, int nilai) {
+        this.nama = nama;
         this.tanggal = tanggal;
         this.umur = umur;
         this.nilai = nilai;
+    }
+
+    public String getNama() {
+        return nama;
     }
 
     public String getTanggal() {
