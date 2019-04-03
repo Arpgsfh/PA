@@ -52,7 +52,6 @@ public class ImageAdapter extends BaseAdapter {
     private String[] mThumbIds = {
             "3", "6",
             "9", "12",
-            "15", "18",
-            "21", "24"
+            "15", "18"
     };
 }

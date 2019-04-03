@@ -72,7 +72,7 @@ public class TestActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String value = dataSnapshot.getValue(String.class);
-                    noPertanyaan.setText(String.valueOf(nomor));
+                    noPertanyaan.setText(String.valueOf(nomor)+" /10");
                     pertanyaan.setText(value);
                 }
 

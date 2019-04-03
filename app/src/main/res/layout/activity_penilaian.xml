@@ -9,13 +9,14 @@
 
     <TextView
         android:id="@+id/penilaian"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@drawable/test_bg"
         android:justificationMode="inter_word"
         android:padding="16dp"
         android:text="Sesuai"
+        android:textSize="15dp"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"

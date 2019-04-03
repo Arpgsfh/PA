@@ -11,25 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StimulasiActivity"
-            android:label="Stimulasi"
-            android:theme="@style/AppThemeAction"
-            android:parentActivityName=".MainActivity">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-
+        <activity
+            android:name=".ProfilAnakActivity"
+            android:label="Profil Anak"
+            android:theme="@style/AppThemeAction">
         </activity>
-        <activity android:name=".RiwayatActivity"
-            android:label="Riwayat"
-            android:theme="@style/AppThemeAction"
-            android:parentActivityName=".MainActivity">
-
+        <activity
+            android:name=".StimulasiActivity"
+            android:label="Stimulasi"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeAction">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
-
+        </activity>
+        <activity
+            android:name=".RiwayatActivity"
+            android:label="Riwayat"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeAction">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -39,15 +42,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".PilihUmurActivity" />
-        <activity android:name=".TestActivity"
+        <activity
+            android:name=".TestActivity"
             android:label="Test"
-            android:theme="@style/AppThemeAction"
-            android:parentActivityName=".MainActivity">
-
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeAction">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
-
         </activity>
         <activity android:name=".PenilaianActivity" />
     </application>

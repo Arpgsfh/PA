@@ -1,12 +1,13 @@
 package org.d3ifcool.denver;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class PilihUmurActivity extends AppCompatActivity {
     int[] mThumbIds = {
@@ -15,11 +16,23 @@ public class PilihUmurActivity extends AppCompatActivity {
             15, 18
     };
 
+    public static final String PROFILE = "profile";
+    String idProfil;
+    String namaProfile;
+
     int menu;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pilih_umur);
+
+        TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
+
+        SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
+        idProfil = prefs.getString("ID", null);
+        namaProfile = prefs.getString("NAMA", null);
+
+        namaAnak.setText(namaProfile);
 
         Intent intent = getIntent();
         menu = intent.getIntExtra("MENU",0);
