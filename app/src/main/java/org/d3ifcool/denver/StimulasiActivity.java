@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.alespero.expandablecardview.ExpandableCardView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -136,11 +137,10 @@ public class StimulasiActivity extends AppCompatActivity {
 
             if(group.getItems()==null)
             {
-                holder.listGroup.setOnClickListener(  new View.OnClickListener() {
+                holder.listGroup.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
                     @Override
-                    public void onClick(View view) {
-                        Toast toast = Toast.makeText(getApplicationContext(), group.toString(), Toast.LENGTH_SHORT);
-                        toast.show();
+                    public void onExpandChanged(View v, boolean isExpanded) {
+                        Toast.makeText(getApplicationContext(), isExpanded ? "Expanded!" : "Collapsed!", Toast.LENGTH_SHORT).show();
                     }
                 });
 

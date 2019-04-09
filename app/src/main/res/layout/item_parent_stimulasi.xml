@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+
+<com.alespero.expandablecardview.ExpandableCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="6dp"
+    android:layout_margin="8dp"
+    android:id="@+id/listParent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="20dp"
-    android:background="#80cfd8dc"
-    android:layout_marginBottom="1dp">
+    app:title="Gerak Kasar"
+    app:inner_view="@layout/item_child_stimulasi"
+    app:expandOnClick="true"
+    app:animationDuration="300"
+    app:startExpanded="false">
 
-    <TextView
-        android:id="@+id/listParent"
-        android:text="text"
-        android:textSize="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+</com.alespero.expandablecardview.ExpandableCardView>
 
-</LinearLayout>

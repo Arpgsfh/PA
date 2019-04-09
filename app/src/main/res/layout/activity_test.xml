@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     tools:context="org.d3ifcool.denver.TestActivity">
 
-    <TextView
-        android:id="@+id/pertanyaan"
-        android:layout_width="0dp"
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/test_bg"
-        android:justificationMode="inter_word"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
         android:padding="16dp"
-        android:textSize="15sp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noPertanyaan"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/noPertanyaan">
+
+        <TextView
+            android:id="@+id/pertanyaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:textSize="15sp" />
+
+    </android.support.v7.widget.CardView>
+
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -42,8 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
             android:onClick="onRadioButtonClicked"
-            android:text="Iya"
-            android:textColor="#fff" />
+            android:text="Iya"/>
 
         <RadioButton
             android:id="@+id/radioBtnTidak"
@@ -51,8 +62,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="20dp"
             android:onClick="onRadioButtonClicked"
-            android:text="Tidak"
-            android:textColor="#fff" />
+            android:text="Tidak" />
 
     </RadioGroup>
 
@@ -78,7 +88,8 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="NO"
-        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +113,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pertanyaan" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 </android.support.constraint.ConstraintLayout>
