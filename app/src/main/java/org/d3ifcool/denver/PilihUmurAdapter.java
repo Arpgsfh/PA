@@ -13,10 +13,10 @@ import android.widget.TextView;
  * Created by User on 2/7/2019.
  */
 
-public class ImageAdapter extends BaseAdapter {
+public class PilihUmurAdapter extends BaseAdapter {
     private Context mContext;
 
-    public ImageAdapter(Context c) {
+    public PilihUmurAdapter(Context c) {
         mContext = c;
     }
 

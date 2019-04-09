@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -18,10 +19,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+import com.squareup.picasso.Picasso;
+
 public class TestActivity extends AppCompatActivity {
 
     TextView noPertanyaan;
     TextView pertanyaan;
+    ImageView gmbr;
     RadioGroup radioGroup;
     Button btnLanjut;
 
@@ -45,6 +50,7 @@ public class TestActivity extends AppCompatActivity {
 
         noPertanyaan = (TextView) findViewById(R.id.noPertanyaan);
         pertanyaan = (TextView) findViewById(R.id.pertanyaan);
+        gmbr = (ImageView) findViewById(R.id.gmbrPertanyaan);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         btnLanjut = (Button) findViewById(R.id.button);
 
@@ -71,9 +77,13 @@ public class TestActivity extends AppCompatActivity {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String value = dataSnapshot.getValue(String.class);
+                    Test test = dataSnapshot.getValue(Test.class);
                     noPertanyaan.setText(String.valueOf(nomor)+" /10");
-                    pertanyaan.setText(value);
+                    pertanyaan.setText(test.pertanyaan);
+
+                    Picasso.with(TestActivity.this)
+                            .load(test.getImageUrl())
+                            .into(gmbr);
                 }
 
                 @Override

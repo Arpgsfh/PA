@@ -42,7 +42,7 @@ public class PilihUmurActivity extends AppCompatActivity {
         menu = intent.getIntExtra("MENU",0);
 
         GridView gridview = (GridView) findViewById(R.id.gridView);
-        gridview.setAdapter(new ImageAdapter(this));
+        gridview.setAdapter(new PilihUmurAdapter(this));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

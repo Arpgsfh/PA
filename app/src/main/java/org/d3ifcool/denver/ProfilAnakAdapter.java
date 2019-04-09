@@ -47,6 +47,7 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
                 editor.putString("UMUR", currentProfil.getTglLahir());
                 editor.commit();
                 Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra("RELOAD", 1);
                 context.startActivity(intent);
                 ((Activity)context).finish();
             }

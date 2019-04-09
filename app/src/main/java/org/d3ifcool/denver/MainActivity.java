@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String PROFILE = "profile";
     String idProfil;
     String namaProfile;
+    String reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent testIntent = new Intent(MainActivity.this, ProfilAnakActivity.class);
                 startActivity(testIntent);
-                finish();
             }
         });
 
@@ -71,11 +71,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         if (idProfil==null){
             Intent intentProfil = new Intent(MainActivity.this, ProfilAnakActivity.class);
             startActivity(intentProfil);
-            finish();
         }
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
     }
 }
