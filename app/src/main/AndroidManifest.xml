@@ -55,6 +55,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".PenilaianActivity" />
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>

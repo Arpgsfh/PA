@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Denver</string>
+    <string name="default_web">156548349992-fnnd1m70omthnalpmd0pcon8m44n2pf0.apps.googleusercontent.com</string>
+    <string name="loading">loading</string>
 </resources>
