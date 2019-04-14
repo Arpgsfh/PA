@@ -36,7 +36,7 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
         final  ProfilAnak currentProfil = profilAnakList.get(position);
         holder.noTextView.setText(Integer.toString(position+1));
         holder.namaTextView.setText(currentProfil.getNama());
-        holder.umurTextView.setText(currentProfil.getTglLahir());
+        holder.umurTextView.setText(currentProfil.getTglLahir().hari+" "+currentProfil.getTglLahir().bulan+" "+currentProfil.getTglLahir().tahun);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +44,9 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
                 SharedPreferences.Editor editor = context.getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
                 editor.putString("ID", currentProfil.getId());
                 editor.putString("NAMA", currentProfil.getNama());
-                editor.putString("UMUR", currentProfil.getTglLahir());
+                editor.putInt("TAHUN", currentProfil.getTglLahir().tahun);
+                editor.putInt("BULAN", currentProfil.getTglLahir().bulan);
+                editor.putInt("HARI", currentProfil.getTglLahir().hari);
                 editor.commit();
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("RELOAD", 1);

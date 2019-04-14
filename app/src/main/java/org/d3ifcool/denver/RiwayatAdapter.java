@@ -3,6 +3,7 @@ package org.d3ifcool.denver;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,7 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.RiwayatV
 
     public class RiwayatViewHolder extends RecyclerView.ViewHolder{
 
+        public CardView cardView;
         public TextView namaTextView;
         public TextView umurTextView;
         public TextView nilaiTextView;
@@ -61,6 +63,7 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.RiwayatV
 
         public RiwayatViewHolder(View itemView) {
             super(itemView);
+            cardView = (CardView) itemView.findViewById(R.id.riwayat_card_view);
             namaTextView = (TextView) itemView.findViewById(R.id.list_nama_riwayat);
             umurTextView = (TextView) itemView.findViewById(R.id.list_umur_riwayat);
             nilaiTextView = (TextView) itemView.findViewById(R.id.list_nilai_riwayat);

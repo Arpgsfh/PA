@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class PenilaianActivity extends AppCompatActivity {
 
     public static final String PROFILE = "profile";
 
+    CardView penilaianCardView;
     TextView penilaian;
 
     FirebaseDatabase database;
@@ -40,19 +42,23 @@ public class PenilaianActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         nilai = intent.getIntExtra("NILAI",0);
         umur = intent.getIntExtra("UMUR",0);
+        penilaianCardView = (CardView) findViewById(R.id.penilaian_card_view);
         penilaian = (TextView) findViewById(R.id.penilaian);
 
         Button button = (Button) findViewById(R.id.button);
 
         if (nilai>8){
+            penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.green));
             penilaian.setText("Selamat, perkembangan anak Anda Sesuai.");
             button.setText("Lanjut");
             intent1 = new Intent(PenilaianActivity.this, MainActivity.class);
         }else if (nilai>6){
+            penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.yellow));
             penilaian.setText("Pantau terus perkembangan anak Anda. Cari Kemungkinan Penyakit, ulangi test 2 Minggu lagi. Jika masih Meragukan, segera rujuk ke RS atau Poli Anak");
             intent1 = new Intent(PenilaianActivity.this, StimulasiActivity.class);
             intent1.putExtra("UMUR",umur);
         }else{
+            penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.red));
             penilaian.setText("Ada penyimpangan dalam perkembangan anak Anda, segera rujuk ke RS atau Poli Anak");
             intent1 = new Intent(PenilaianActivity.this, StimulasiActivity.class);
             intent1.putExtra("UMUR",umur);

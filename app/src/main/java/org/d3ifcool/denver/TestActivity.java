@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +21,13 @@ import com.squareup.picasso.Picasso;
 
 public class TestActivity extends AppCompatActivity {
 
+    TextView textViewKategori;
+    CardView cardView;
     TextView noPertanyaan;
     TextView pertanyaan;
     ImageView gmbr;
-    RadioGroup radioGroup;
-    Button btnLanjut;
+    Button btnIya;
+    Button btnTidak;
 
     FirebaseDatabase database;
 
@@ -48,26 +47,34 @@ public class TestActivity extends AppCompatActivity {
 
         setPertanyaan(nomor);
 
+        textViewKategori = (TextView) findViewById(R.id.kategori);
+        cardView = (CardView) findViewById(R.id.cardView);
         noPertanyaan = (TextView) findViewById(R.id.noPertanyaan);
         pertanyaan = (TextView) findViewById(R.id.pertanyaan);
         gmbr = (ImageView) findViewById(R.id.gmbrPertanyaan);
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        btnLanjut = (Button) findViewById(R.id.button);
+        btnIya = (Button) findViewById(R.id.buttonIya);
+        btnTidak = (Button) findViewById(R.id.buttonTdk);
 
-        btnLanjut.setOnClickListener(new View.OnClickListener() {
+        btnIya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nomor++;
                 reset();
+                nomor++;
+                nilai++;
                 setPertanyaan(nomor);
 
             }
         });
-    }
 
-    private void reset(){
-        radioGroup.clearCheck();
-        btnLanjut.setVisibility(View.INVISIBLE);
+        btnTidak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reset();
+                nomor++;
+                setPertanyaan(nomor);
+
+            }
+        });
     }
 
     private void setPertanyaan(final int nomor){
@@ -81,9 +88,27 @@ public class TestActivity extends AppCompatActivity {
                     noPertanyaan.setText(String.valueOf(nomor)+" /10");
                     pertanyaan.setText(test.pertanyaan);
 
+                    int kategori = test.kategori;
+                    if (kategori==1){
+                        textViewKategori.setText("Gerak Kasar");
+                        cardView.setCardBackgroundColor(getResources().getColor(R.color.green));
+                    }else if (kategori==2){
+                        textViewKategori.setText("Gerak Halus");
+                        cardView.setCardBackgroundColor(getResources().getColor(R.color.blue));
+                    }else if (kategori==3){
+                        textViewKategori.setText("Bicara dan Bahasa");
+                        cardView.setCardBackgroundColor(getResources().getColor(R.color.red));
+                    }else {
+                        textViewKategori.setText("Sosialisasi dan Kemandirian");
+                        cardView.setCardBackgroundColor(getResources().getColor(R.color.yellow));
+                    }
+
                     Picasso.with(TestActivity.this)
                             .load(test.getImageUrl())
                             .into(gmbr);
+
+                    btnIya.setVisibility(View.VISIBLE);
+                    btnTidak.setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -100,23 +125,8 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        btnLanjut.setVisibility(View.VISIBLE);
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radioBtnYa:
-                if (checked){
-                    nilai++;
-                }
-                break;
-            case R.id.radioBtnTidak:
-                if (checked){
-                }
-                break;
-        }
+    private void reset(){
+        btnIya.setVisibility(View.INVISIBLE);
+        btnTidak.setVisibility(View.INVISIBLE);
     }
 }

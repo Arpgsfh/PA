@@ -1,12 +1,13 @@
 package org.d3ifcool.denver;
 
 public class ProfilAnak {
-    String id, nama, tglLahir;
+    String id, nama;
+    Umur tglLahir;
 
     public ProfilAnak() {
     }
 
-    public ProfilAnak(String id, String nama, String tglLahir) {
+    public ProfilAnak(String id, String nama, Umur tglLahir) {
         this.id = id;
         this.nama = nama;
         this.tglLahir = tglLahir;
@@ -20,7 +21,7 @@ public class ProfilAnak {
         return nama;
     }
 
-    public String getTglLahir() {
+    public Umur getTglLahir() {
         return tglLahir;
     }
 }

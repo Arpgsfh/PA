@@ -5,8 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-sdk tools:overrideLibrary="com.alespero.expandablecardview"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

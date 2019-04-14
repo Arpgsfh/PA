@@ -84,8 +84,9 @@ public class ProfilAnakActivity extends AppCompatActivity {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         calendar.set(tglLahir.getYear(), tglLahir.getMonth(), tglLahir.getDayOfMonth());
                         String tanggal = sdf.format(calendar.getTime());
+                        Umur umur = new Umur(tglLahir.getDayOfMonth(), tglLahir.getMonth()+1, tglLahir.getYear());
 
-                        ProfilAnak profilAnak = new ProfilAnak(id, nama, tanggal);
+                        ProfilAnak profilAnak = new ProfilAnak(id, nama, umur);
                         databaseProfilAnak.child(id).setValue(profilAnak);
                     }
                 });

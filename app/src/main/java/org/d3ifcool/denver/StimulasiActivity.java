@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.alespero.expandablecardview.ExpandableCardView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -115,7 +114,7 @@ public class StimulasiActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindChildViewHolder(StimulasiChildViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
+        public void onBindChildViewHolder(final StimulasiChildViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
 
             final StimulasiChild childItem = ((StimulasiParent) group).getItems().get(childIndex);
             holder.onBind(childItem.getTahapan(), childItem.getStimulasi());
@@ -135,14 +134,8 @@ public class StimulasiActivity extends AppCompatActivity {
         public void onBindGroupViewHolder(StimulasiParentViewHolder holder, int flatPosition, final ExpandableGroup group) {
             holder.setParentTitle(group);
 
-            if(group.getItems()==null)
-            {
-                holder.listGroup.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
-                    @Override
-                    public void onExpandChanged(View v, boolean isExpanded) {
-                        Toast.makeText(getApplicationContext(), isExpanded ? "Expanded!" : "Collapsed!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            if(group.getItems()==null) {
+
 
             }
         }

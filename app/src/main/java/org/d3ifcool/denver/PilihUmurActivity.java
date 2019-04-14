@@ -9,6 +9,12 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
+import java.util.Date;
+
 public class PilihUmurActivity extends AppCompatActivity {
     int[] mThumbIds = {
             3, 6,
@@ -19,10 +25,17 @@ public class PilihUmurActivity extends AppCompatActivity {
     public static final String PROFILE = "profile";
     String idProfil;
     String namaProfile;
-    String umurProfile;
+    int tahun, bulan, hari;
+    int years = 0;
+    int months = 0;
+    int days = 0;
 
     int menu;
+    
+    GridView gridview;
 
+    Boolean umur;
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pilih_umur);
@@ -33,31 +46,48 @@ public class PilihUmurActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
         idProfil = prefs.getString("ID", null);
         namaProfile = prefs.getString("NAMA", null);
-        umurProfile = prefs.getString("UMUR", null);
+        tahun = prefs.getInt("TAHUN", 0);
+        bulan = prefs.getInt("BULAN", 0);
+        hari = prefs.getInt("HARI", 0);
 
         namaAnak.setText(namaProfile);
-        umurAnak.setText(umurProfile);
+        AgeCalculator();
+        umurAnak.setText(months+" Bulan");
 
         Intent intent = getIntent();
         menu = intent.getIntExtra("MENU",0);
 
-        GridView gridview = (GridView) findViewById(R.id.gridView);
-        gridview.setAdapter(new PilihUmurAdapter(this));
+        gridview = (GridView) findViewById(R.id.gridView);
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (menu==1){
-                    Intent intentTest = new Intent(PilihUmurActivity.this, TestActivity.class);
-                    intentTest.putExtra("UMUR",mThumbIds[position]);
-                    startActivity(intentTest);
-                }else if (menu==2){
-                    Intent intentStimulasi = new Intent(PilihUmurActivity.this, StimulasiActivity.class);
-                    intentStimulasi.putExtra("UMUR",mThumbIds[position]);
-                    startActivity(intentStimulasi);
-                }
+        gridview.setAdapter(new PilihUmurAdapter(this, months, menu));
 
+    }
+
+    public void AgeCalculator(){
+        Calendar now = Calendar.getInstance();
+        years = now.get(Calendar.YEAR) - tahun;
+
+        months = now.get(Calendar.MONTH) - bulan;
+
+        if (months<0){
+            years--;
+            months = 12 + months;
+        }
+        months = (years*12) + months;
+
+        days = now.get(Calendar.DAY_OF_MONTH) - hari;
+
+        if (days<=0){
+            months++;
+        }
+    }
+    
+    public void cekUmur(){
+        for (int i=0; i>=5; i++){
+            if (mThumbIds[i]<= months){
+                umur=true;
             }
-        });
+        }
+        
     }
 }
