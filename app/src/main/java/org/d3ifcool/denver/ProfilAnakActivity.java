@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,13 +39,17 @@ public class ProfilAnakActivity extends AppCompatActivity {
 
     FloatingActionButton tambah;
 
+    String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_anak);
 
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        id = acct.getId();
 
-        databaseProfilAnak = FirebaseDatabase.getInstance().getReference("Profil Anak");
+        databaseProfilAnak = FirebaseDatabase.getInstance().getReference("Profil Anak").child(id);
 
         mAdapter = new ProfilAnakAdapter(this, profilAnaks);
 

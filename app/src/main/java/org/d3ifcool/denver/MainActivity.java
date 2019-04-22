@@ -1,5 +1,6 @@
 package org.d3ifcool.denver;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Button stimulasiButton = (Button) findViewById(R.id.stimulasiBtn);
         Button riwayatButton = (Button) findViewById(R.id.riwayatBtn);
 
-        SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
+        final SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
         idProfil = prefs.getString("ID", null);
         namaProfile = prefs.getString("NAMA", null);
 
@@ -70,12 +71,11 @@ public class MainActivity extends AppCompatActivity {
                     .into(signOut);
         }
 
-
-
-
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
+                editor.clear().commit();
                 signOut();
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
@@ -147,4 +147,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
