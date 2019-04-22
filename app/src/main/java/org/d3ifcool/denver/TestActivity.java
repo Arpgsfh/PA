@@ -34,6 +34,9 @@ public class TestActivity extends AppCompatActivity {
     int umur;
     int nomor=1;
     int nilai=0;
+    int kategori=0;
+    int jKasar, jHalus, jBicara, jSosialisasi;
+    int nKasar, nHalus, nBicara, nSosialisasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,16 @@ public class TestActivity extends AppCompatActivity {
         btnIya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (kategori==1){
+                    nKasar++;
+                }else if (kategori==2){
+                    nHalus++;
+                }else if (kategori==3){
+                    nBicara++;
+                }else if (kategori==4){
+                    nSosialisasi++;
+                }
+
                 reset();
                 nomor++;
                 nilai++;
@@ -88,17 +101,21 @@ public class TestActivity extends AppCompatActivity {
                     noPertanyaan.setText(String.valueOf(nomor)+" /10");
                     pertanyaan.setText(test.pertanyaan);
 
-                    int kategori = test.kategori;
+                    kategori = test.kategori;
                     if (kategori==1){
+                        jKasar++;
                         textViewKategori.setText("Gerak Kasar");
                         cardView.setCardBackgroundColor(getResources().getColor(R.color.green));
                     }else if (kategori==2){
+                        jHalus++;
                         textViewKategori.setText("Gerak Halus");
                         cardView.setCardBackgroundColor(getResources().getColor(R.color.blue));
                     }else if (kategori==3){
+                        jBicara++;
                         textViewKategori.setText("Bicara dan Bahasa");
                         cardView.setCardBackgroundColor(getResources().getColor(R.color.red));
                     }else {
+                        jSosialisasi++;
                         textViewKategori.setText("Sosialisasi dan Kemandirian");
                         cardView.setCardBackgroundColor(getResources().getColor(R.color.yellow));
                     }
@@ -119,6 +136,16 @@ public class TestActivity extends AppCompatActivity {
         }else {
             Intent intent = new Intent(TestActivity.this, PenilaianActivity.class);
             intent.putExtra("NILAI",nilai);
+            intent.putExtra("NK",nKasar);
+            intent.putExtra("NH",nHalus);
+            intent.putExtra("NB",nBicara);
+            intent.putExtra("NS",nSosialisasi);
+
+            intent.putExtra("JK",jKasar);
+            intent.putExtra("JH",jHalus);
+            intent.putExtra("JB",jBicara);
+            intent.putExtra("JS",jSosialisasi);
+
             intent.putExtra("UMUR",umur);
             startActivity(intent);
             finish();
