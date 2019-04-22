@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.d3ifcool.denver.TestActivity">
+    tools:context="org.d3ifcool.denver.TestActivity"
+    android:background="@drawable/test_bg">
 
     <android.support.v7.widget.CardView
         android:id="@+id/penilaian_card_view"
@@ -167,7 +168,6 @@
         android:layout_marginStart="8dp"
         android:text="Lihat Stimulasi"
         android:padding="10dp"
-        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

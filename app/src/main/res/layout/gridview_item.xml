@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/grid_bg">
+    android:background="@drawable/button_bg">
 
     <TextView
         android:id="@+id/judul"
@@ -13,8 +13,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="40sp"
-        android:text="3"
-        android:textColor="@color/colorPrimary"/>
+        android:text="3" />
 
     <TextView
         android:layout_width="match_parent"
@@ -22,9 +21,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textSize="20sp"
-        android:background="@color/colorPrimary"
         android:text="Bulan"
-        android:textColor="#fff"
         android:textAllCaps="true"
         android:textStyle="bold"/>
 

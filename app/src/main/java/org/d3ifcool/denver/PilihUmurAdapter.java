@@ -57,7 +57,7 @@ public class PilihUmurAdapter extends BaseAdapter {
         TextView textView = (TextView) grid.findViewById(R.id.judul);
 
         if (Integer.valueOf(mThumbIds[position])>months){
-            grid.setBackgroundColor(mContext.getResources().getColor(R.color.red));
+            grid.setBackground(mContext.getResources().getDrawable(R.drawable.grid_bg_non));
 
         }else {
             grid.setOnClickListener(new View.OnClickListener() {
