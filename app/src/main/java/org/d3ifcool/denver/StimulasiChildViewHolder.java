@@ -18,7 +18,7 @@ public class StimulasiChildViewHolder extends ChildViewHolder {
 
     public void onBind(String tahapan, String stimulasi) {
         listChildTahapan.setText(tahapan);
-        listChildStimulasi.setText(stimulasi);
+        listChildStimulasi.setText(stimulasi.replace("_b","\n"));
     }
 
 }
