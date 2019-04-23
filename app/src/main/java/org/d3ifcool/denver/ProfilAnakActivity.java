@@ -51,7 +51,7 @@ public class ProfilAnakActivity extends AppCompatActivity {
 
         databaseProfilAnak = FirebaseDatabase.getInstance().getReference("Profil Anak").child(id);
 
-        mAdapter = new ProfilAnakAdapter(this, profilAnaks);
+        mAdapter = new ProfilAnakAdapter(this, id, profilAnaks);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerProfil);
         tambah = (FloatingActionButton) findViewById(R.id.tambahProfil);
@@ -119,11 +119,11 @@ public class ProfilAnakActivity extends AppCompatActivity {
                 }
 
                 if (this != null){
-                    ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, profilAnaks);
+                    ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, id, profilAnaks);
                     recyclerView.setAdapter(profilAnakAdapter);
                 }
 
-                ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, profilAnaks);
+                ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, id, profilAnaks);
                 recyclerView.setAdapter(profilAnakAdapter);
             }
 
