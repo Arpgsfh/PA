@@ -20,6 +20,7 @@ import java.util.List;
 public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.ProfilAnakViewHolder> {
 
     DatabaseReference databaseProfilAnak;
+    DatabaseReference databaseRiwayat;
 
     private Context context;
     private String id;
@@ -51,6 +52,7 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
             public void onClick(View v) {
                 currentProfil.getId();
                 databaseProfilAnak.child(currentProfil.id).removeValue();
+                databaseRiwayat.child(currentProfil.id).removeValue();
             }
         });
 
@@ -90,6 +92,7 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
             super(itemView);
 
             databaseProfilAnak = FirebaseDatabase.getInstance().getReference("Profil Anak").child(id);
+            databaseRiwayat = FirebaseDatabase.getInstance().getReference("Riwayat").child(id);
 
             noTextView = (TextView) itemView.findViewById(R.id.noAnakTextView);
             namaTextView = (TextView) itemView.findViewById(R.id.namaAnakTextView);

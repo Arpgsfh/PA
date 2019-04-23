@@ -1,5 +1,6 @@
 package org.d3ifcool.denver;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -28,15 +29,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class ProfilAnakActivity extends AppCompatActivity {
 
+    final Calendar myCalendar = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     DatabaseReference databaseProfilAnak;
 
     ProfilAnakAdapter mAdapter;
     RecyclerView recyclerView;
     List<ProfilAnak> profilAnaks;
 
+    EditText titleBox, tglLahirBox;
     FloatingActionButton tambah;
 
     String id;
@@ -70,12 +75,38 @@ public class ProfilAnakActivity extends AppCompatActivity {
                 LinearLayout layout = new LinearLayout(ProfilAnakActivity.this);
                 layout.setOrientation(LinearLayout.VERTICAL);
 
-                final EditText titleBox = new EditText(ProfilAnakActivity.this);
-                titleBox.setHint("Nama");
+                titleBox = new EditText(ProfilAnakActivity.this);
+                titleBox.setHint("Nama Anak");
                 layout.addView(titleBox); // Notice this is an add method
 
-                final DatePicker tglLahir = new DatePicker(ProfilAnakActivity.this);
-                layout.addView(tglLahir); // Another add method
+                tglLahirBox = new EditText(ProfilAnakActivity.this);
+                tglLahirBox.setHint("Tanggal Lahir Anak");
+                tglLahirBox.setFocusable(false);
+                tglLahirBox.isClickable();
+                layout.addView(tglLahirBox); // Notice this is an add method
+
+                final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                          int dayOfMonth) {
+                        // TODO Auto-generated method stub
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, monthOfYear);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        updateLabel();
+                    }
+
+                };
+
+                tglLahirBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new DatePickerDialog(ProfilAnakActivity.this, date, myCalendar
+                                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                    }
+                });
 
                 builder.setView(layout); // Again this is a set method, not add
 
@@ -85,12 +116,11 @@ public class ProfilAnakActivity extends AppCompatActivity {
                         Toast.makeText(ProfilAnakActivity.this, titleBox.getText().toString(), Toast.LENGTH_SHORT).show();
                         String id = databaseProfilAnak.push().getKey();
                         String nama = titleBox.getText().toString();
+                        int hari = myCalendar.get(Calendar.DAY_OF_MONTH);
+                        int bulan = myCalendar.get(Calendar.MONTH)+1;
+                        int tahun = myCalendar.get(Calendar.YEAR);
 
-                        final Calendar calendar = Calendar.getInstance();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        calendar.set(tglLahir.getYear(), tglLahir.getMonth(), tglLahir.getDayOfMonth());
-                        String tanggal = sdf.format(calendar.getTime());
-                        Umur umur = new Umur(tglLahir.getDayOfMonth(), tglLahir.getMonth()+1, tglLahir.getYear());
+                        Umur umur = new Umur(hari, bulan, tahun);
 
                         ProfilAnak profilAnak = new ProfilAnak(id, nama, umur);
                         databaseProfilAnak.child(id).setValue(profilAnak);
@@ -133,5 +163,10 @@ public class ProfilAnakActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void updateLabel() {
+
+        tglLahirBox.setText(sdf.format(myCalendar.getTime()));
     }
 }
