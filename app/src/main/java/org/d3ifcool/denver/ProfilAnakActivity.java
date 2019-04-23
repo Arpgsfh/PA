@@ -34,7 +34,7 @@ import java.util.Locale;
 public class ProfilAnakActivity extends AppCompatActivity {
 
     final Calendar myCalendar = Calendar.getInstance();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     DatabaseReference databaseProfilAnak;
 
     ProfilAnakAdapter mAdapter;
@@ -113,17 +113,22 @@ public class ProfilAnakActivity extends AppCompatActivity {
                 builder.setPositiveButton("Tambah", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(ProfilAnakActivity.this, titleBox.getText().toString(), Toast.LENGTH_SHORT).show();
-                        String id = databaseProfilAnak.push().getKey();
-                        String nama = titleBox.getText().toString();
-                        int hari = myCalendar.get(Calendar.DAY_OF_MONTH);
-                        int bulan = myCalendar.get(Calendar.MONTH)+1;
-                        int tahun = myCalendar.get(Calendar.YEAR);
 
-                        Umur umur = new Umur(hari, bulan, tahun);
+                        if (titleBox.getText().toString() == null || titleBox.getText().toString()=="" || tglLahirBox.getText().toString() == null || tglLahirBox.getText().toString()==""){
+                            Toast.makeText(ProfilAnakActivity.this, titleBox.getText().toString(), Toast.LENGTH_SHORT).show();
+                            String id = databaseProfilAnak.push().getKey();
+                            String nama = titleBox.getText().toString();
+                            int hari = myCalendar.get(Calendar.DAY_OF_MONTH);
+                            int bulan = myCalendar.get(Calendar.MONTH)+1;
+                            int tahun = myCalendar.get(Calendar.YEAR);
 
-                        ProfilAnak profilAnak = new ProfilAnak(id, nama, umur);
-                        databaseProfilAnak.child(id).setValue(profilAnak);
+                            Umur umur = new Umur(hari, bulan, tahun);
+
+                            ProfilAnak profilAnak = new ProfilAnak(id, nama, umur);
+                            databaseProfilAnak.child(id).setValue(profilAnak);
+                        }else {
+                            Toast.makeText(ProfilAnakActivity.this, "Data tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
