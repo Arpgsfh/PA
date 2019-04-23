@@ -114,8 +114,9 @@ public class ProfilAnakActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        if (titleBox.getText().toString() == null || titleBox.getText().toString()=="" || tglLahirBox.getText().toString() == null || tglLahirBox.getText().toString()==""){
-                            Toast.makeText(ProfilAnakActivity.this, titleBox.getText().toString(), Toast.LENGTH_SHORT).show();
+                        if (titleBox.getText().toString().isEmpty() || tglLahirBox.getText(). toString().isEmpty()){
+                            Toast.makeText(ProfilAnakActivity.this, "Data tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                        }else {
                             String id = databaseProfilAnak.push().getKey();
                             String nama = titleBox.getText().toString();
                             int hari = myCalendar.get(Calendar.DAY_OF_MONTH);
@@ -126,8 +127,6 @@ public class ProfilAnakActivity extends AppCompatActivity {
 
                             ProfilAnak profilAnak = new ProfilAnak(id, nama, umur);
                             databaseProfilAnak.child(id).setValue(profilAnak);
-                        }else {
-                            Toast.makeText(ProfilAnakActivity.this, "Data tidak boleh kosong", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
