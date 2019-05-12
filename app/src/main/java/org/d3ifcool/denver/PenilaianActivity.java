@@ -76,7 +76,7 @@ public class PenilaianActivity extends AppCompatActivity {
         skorHalus = (TextView) findViewById(R.id.skorGerakHalus);
         skorBicara = (TextView) findViewById(R.id.skorBicara);
         skorSosialisasi = (TextView) findViewById(R.id.skorSosialisasi);
-        penilaian = (TextView) findViewById(R.id.ket_penilaian);
+        penilaian = (TextView) findViewById(R.id.list_nama_riwayat);
 
         Button button = (Button) findViewById(R.id.button);
 
@@ -130,8 +130,8 @@ public class PenilaianActivity extends AppCompatActivity {
 
                 String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-                DatabaseReference myRef = database.getReference("Riwayat").child(id).child(idProfil);
-                Riwayat riwayat = new Riwayat(namaProfile, date, String.valueOf(umur), nilai);
+                DatabaseReference myRef = database.getReference("Riwayat").child(id).child(idProfil).child(String.valueOf(umur));
+                RiwayatChild riwayat = new RiwayatChild(namaProfile, date, nilai, nKasar, nHalus, nBicara, nSosialisasi, jKasar, jHalus, jBicara, jSosialisasi);
                 String id = myRef.push().getKey();
                 myRef.child(id).setValue(riwayat);
 

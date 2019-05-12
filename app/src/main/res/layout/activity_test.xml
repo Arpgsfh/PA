@@ -15,7 +15,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Kategori"
-        app:layout_constraintBottom_toBottomOf="@+id/noPertanyaan"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView" />
 
     <android.support.v7.widget.CardView
