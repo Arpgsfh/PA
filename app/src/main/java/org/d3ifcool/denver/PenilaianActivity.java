@@ -38,6 +38,7 @@ public class PenilaianActivity extends AppCompatActivity {
     int umur, nilai;
     int jKasar, jHalus, jBicara, jSosialisasi;
     int nKasar, nHalus, nBicara, nSosialisasi;
+    int tKasar=0, tHalus=0, tBicara=0, tSosialisasi=0;
 
     String id;
 
@@ -85,6 +86,19 @@ public class PenilaianActivity extends AppCompatActivity {
         skorBicara.setText(nBicara+" /"+jBicara);
         skorSosialisasi.setText(nSosialisasi+" /"+jSosialisasi);
 
+        if (nKasar == jKasar){
+            tKasar = 1;
+        }
+        if (nHalus == jHalus){
+            tHalus = 1;
+        }
+        if (nBicara == jBicara){
+            tBicara = 1;
+        }
+        if (nSosialisasi == jSosialisasi){
+            tSosialisasi = 1;
+        }
+
         if (nilai>8){
             penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.green));
             penilaian.setText("Selamat, perkembangan anak Anda Sesuai.");
@@ -95,11 +109,19 @@ public class PenilaianActivity extends AppCompatActivity {
             penilaian.setText("Pantau terus perkembangan anak Anda. Cari Kemungkinan Penyakit, ulangi test 2 Minggu lagi. Jika masih Meragukan, segera rujuk ke RS atau Poli Anak");
             intent1 = new Intent(PenilaianActivity.this, StimulasiActivity.class);
             intent1.putExtra("UMUR",umur);
+            intent1.putExtra("GK",tKasar);
+            intent1.putExtra("GH",tHalus);
+            intent1.putExtra("BB",tBicara);
+            intent1.putExtra("SK",tSosialisasi);
         }else{
             penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.red));
             penilaian.setText("Ada penyimpangan dalam perkembangan anak Anda, segera rujuk ke RS atau Poli Anak");
             intent1 = new Intent(PenilaianActivity.this, StimulasiActivity.class);
             intent1.putExtra("UMUR",umur);
+            intent1.putExtra("GK",tKasar);
+            intent1.putExtra("GH",tHalus);
+            intent1.putExtra("BB",tBicara);
+            intent1.putExtra("SK",tSosialisasi);
         }
 
         button.setOnClickListener(new View.OnClickListener() {

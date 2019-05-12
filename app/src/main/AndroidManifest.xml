@@ -22,11 +22,7 @@
         <activity
             android:name=".StimulasiActivity"
             android:label="Stimulasi"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/AppThemeAction">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".RiwayatActivity"
@@ -48,11 +44,7 @@
         <activity
             android:name=".TestActivity"
             android:label="Test"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/AppThemeAction">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
         </activity>
         <activity android:name=".PenilaianActivity" />
         <activity android:name=".LoginActivity" />

@@ -26,6 +26,7 @@ public class StimulasiActivity extends AppCompatActivity {
     private RecyclerView recycler_view;
 
     int umur;
+    int tampilGK, tampilGH, tampilSK, tampilBB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,10 @@ public class StimulasiActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         umur = intent.getIntExtra("UMUR",0);
+        tampilGK = intent.getIntExtra("GK",0);
+        tampilGH = intent.getIntExtra("GH",0);
+        tampilBB = intent.getIntExtra("BB",0);
+        tampilSK = intent.getIntExtra("SK",0);
 
         FirebaseApp.initializeApp(this);
 
@@ -53,7 +58,6 @@ public class StimulasiActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<StimulasiParent> Parent = new ArrayList<>();
                 for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
-
 
                     final String ParentKey = snapshot.getKey().toString();
 
@@ -115,10 +119,10 @@ public class StimulasiActivity extends AppCompatActivity {
 
         @Override
         public void onBindChildViewHolder(final StimulasiChildViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
-
             final StimulasiChild childItem = ((StimulasiParent) group).getItems().get(childIndex);
             holder.onBind(childItem.getTahapan(), childItem.getStimulasi());
             final String TitleChild=group.getTitle();
+
             holder.listChildStimulasi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -131,15 +135,21 @@ public class StimulasiActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindGroupViewHolder(StimulasiParentViewHolder holder, int flatPosition, final ExpandableGroup group) {
+        public void onBindGroupViewHolder(final StimulasiParentViewHolder holder, int flatPosition, final ExpandableGroup group) {
             holder.setParentTitle(group);
 
+            if (tampilGK==1 && flatPosition==0){
+                holder.layout.setVisibility(View.GONE);
+            }else if(tampilGH==1 && flatPosition==1){
+                holder.layout.setVisibility(View.GONE);
+            }else if (tampilBB==1 && flatPosition==2){
+                holder.layout.setVisibility(View.GONE);
+            }else if (tampilSK==1 && flatPosition==3){
+                holder.layout.setVisibility(View.GONE);
+            }
+
             if(group.getItems()==null) {
-
-
             }
         }
-
-
     }
 }
