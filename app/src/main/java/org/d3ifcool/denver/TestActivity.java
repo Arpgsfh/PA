@@ -99,7 +99,7 @@ public class TestActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Test test = dataSnapshot.getValue(Test.class);
                     noPertanyaan.setText(String.valueOf(nomor)+" /10");
-                    pertanyaan.setText(test.pertanyaan);
+                    pertanyaan.setText(test.pertanyaan.replace("_b","\n"));
 
                     kategori = test.kategori;
                     if (kategori==1){
