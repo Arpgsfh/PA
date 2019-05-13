@@ -32,7 +32,7 @@ public class TestActivity extends AppCompatActivity {
     FirebaseDatabase database;
 
     int umur;
-    int nomor=1;
+    int nomor=0;
     int nilai=0;
     int kategori=0;
     int jKasar, jHalus, jBicara, jSosialisasi;
@@ -114,18 +114,27 @@ public class TestActivity extends AppCompatActivity {
                         jBicara++;
                         textViewKategori.setText("Bicara dan Bahasa");
                         cardView.setCardBackgroundColor(getResources().getColor(R.color.red));
-                    }else {
+                    }else if (kategori==4){
                         jSosialisasi++;
                         textViewKategori.setText("Sosialisasi dan Kemandirian");
                         cardView.setCardBackgroundColor(getResources().getColor(R.color.yellow));
+                    }else {
+                        textViewKategori.setText("Alat dan Bahan");
                     }
 
                     Picasso.with(TestActivity.this)
                             .load(test.getImageUrl())
                             .into(gmbr);
 
-                    btnIya.setVisibility(View.VISIBLE);
-                    btnTidak.setVisibility(View.VISIBLE);
+                    if (nomor == 0){
+                        btnIya.setVisibility(View.GONE);
+                        btnTidak.setVisibility(View.VISIBLE);
+                        btnTidak.setText("Mulai");
+                    }else {
+                        btnIya.setVisibility(View.VISIBLE);
+                        btnTidak.setVisibility(View.VISIBLE);
+                        btnTidak.setText("Tidak");
+                    }
                 }
 
                 @Override
