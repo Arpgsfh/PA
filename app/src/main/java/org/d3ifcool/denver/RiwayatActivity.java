@@ -3,6 +3,7 @@ package org.d3ifcool.denver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,16 +26,22 @@ import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class RiwayatActivity extends AppCompatActivity {
 
+    public static final String PROFILE = "profile";
+    String idProfil;
+    String namaProfile;
+    int tahun, bulan, hari;
+    int years = 0;
+    int months = 0;
+    int days = 0;
+
     private RecyclerView recycler_view;
 
     int umur;
-
-    public static final String PROFILE = "profile";
-    String idProfil;
 
     String id;
 
@@ -46,8 +54,14 @@ public class RiwayatActivity extends AppCompatActivity {
         id = acct.getId();
 
         SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
-        idProfil = prefs.getString("ID", null);
+        idProfil = prefs.getString("ID", null);namaProfile = prefs.getString("NAMA", null);
+        tahun = prefs.getInt("TAHUN", 0);
+        bulan = prefs.getInt("BULAN", 0);
+        hari = prefs.getInt("HARI", 0);
 
+        ConstraintLayout profilAnak = (ConstraintLayout) findViewById(R.id.profilAnak);
+        TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
+        TextView umurAnak = (TextView) findViewById(R.id.umurTextView);
 
         //Define recycleview
         recycler_view = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -57,6 +71,19 @@ public class RiwayatActivity extends AppCompatActivity {
 
         //Initialize your Firebase app
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+        namaAnak.setText(namaProfile);
+        AgeCalculator();
+        umurAnak.setText(months+" Bulan");
+
+        profilAnak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(RiwayatActivity.this, ProfilAnakActivity.class);
+                startActivity(intent1);
+            }
+        });
 
         // Reference to your entire Firebase database
         final DatabaseReference parentReference = database.getReference("Riwayat").child(id).child(idProfil);
@@ -147,6 +174,25 @@ public class RiwayatActivity extends AppCompatActivity {
 
             if(group.getItems()==null) {
             }
+        }
+    }
+
+    public void AgeCalculator(){
+        Calendar now = Calendar.getInstance();
+        years = now.get(Calendar.YEAR) - tahun;
+
+        months = now.get(Calendar.MONTH) - bulan;
+
+        if (months<0){
+            years--;
+            months = 12 + months;
+        }
+        months = (years*12) + months;
+
+        days = now.get(Calendar.DAY_OF_MONTH) - hari;
+
+        if (days<=0){
+            months++;
         }
     }
 }

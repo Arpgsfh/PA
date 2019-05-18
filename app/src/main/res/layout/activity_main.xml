@@ -19,6 +19,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/akun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Diki"
+        app:layout_constraintBottom_toTopOf="@+id/logOut"
+        app:layout_constraintStart_toEndOf="@+id/button_sign_out"
+        app:layout_constraintTop_toTopOf="@+id/button_sign_out" />
+
+    <TextView
+        android:id="@+id/logOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LogOut"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="@+id/button_sign_out"
+        app:layout_constraintStart_toStartOf="@+id/akun" />
+
     <Button
         android:id="@+id/testBtn"
         android:layout_width="150dp"

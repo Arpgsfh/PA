@@ -31,13 +31,7 @@
             android:label="Stimulasi"
             android:theme="@style/AppThemeAction"></activity>
         <activity
-            android:name=".RiwayatActivity"
-            android:label="Riwayat"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppThemeAction">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+            android:name=".RiwayatActivity">
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         ImageView signOut = (ImageView) findViewById(R.id.button_sign_out);
+        TextView akun = (TextView) findViewById(R.id.akun);
+        TextView logOut = (TextView) findViewById(R.id.logOut);
         TextView namaProfileTextButton = (TextView) findViewById(R.id.namaAnakTextView);
         Button ubahProfileButton = (Button) findViewById(R.id.ubahProfile);
         Button testButton = (Button) findViewById(R.id.testBtn);
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
+            akun.setText("Hai!!, "+acct.getDisplayName());;
+
             Uri personPhoto = acct.getPhotoUrl();
 
             Picasso.with(MainActivity.this)
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     .into(signOut);
         }
 
-        signOut.setOnClickListener(new View.OnClickListener() {
+        logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();

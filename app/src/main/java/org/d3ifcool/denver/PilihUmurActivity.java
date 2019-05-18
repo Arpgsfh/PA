@@ -2,6 +2,7 @@ package org.d3ifcool.denver;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +41,7 @@ public class PilihUmurActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pilih_umur);
 
+        ConstraintLayout profilAnak = (ConstraintLayout) findViewById(R.id.profilAnak);
         TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
         TextView umurAnak = (TextView) findViewById(R.id.umurTextView);
 
@@ -61,6 +63,14 @@ public class PilihUmurActivity extends AppCompatActivity {
 
         gridview.setAdapter(new PilihUmurAdapter(this, months, menu));
 
+        profilAnak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(PilihUmurActivity.this, ProfilAnakActivity.class);
+                startActivity(intent1);
+            }
+        });
+
     }
 
     public void AgeCalculator(){
@@ -80,14 +90,5 @@ public class PilihUmurActivity extends AppCompatActivity {
         if (days<=0){
             months++;
         }
-    }
-    
-    public void cekUmur(){
-        for (int i=0; i>=5; i++){
-            if (mThumbIds[i]<= months){
-                umur=true;
-            }
-        }
-        
     }
 }
