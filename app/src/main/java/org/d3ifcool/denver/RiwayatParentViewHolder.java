@@ -33,6 +33,8 @@ public class RiwayatParentViewHolder extends GroupViewHolder implements View.OnC
     public void setParentTitle(ExpandableGroup group) {
         String kategori=group.getTitle();
         listGroup.setText("Test Bulan ke-"+kategori);
+
+
     }
 
     private void animateExpand() {

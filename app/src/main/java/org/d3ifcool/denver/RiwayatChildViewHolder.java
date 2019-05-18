@@ -1,11 +1,14 @@
 package org.d3ifcool.denver;
 
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 public class RiwayatChildViewHolder extends ChildViewHolder {
+    public CardView listChildCardView;
     public TextView listChildNama;
     public TextView listChildTanggal;
     public TextView listChildNilai;
@@ -13,6 +16,7 @@ public class RiwayatChildViewHolder extends ChildViewHolder {
 
     public RiwayatChildViewHolder(View itemView) {
         super(itemView);
+        listChildCardView = (CardView) itemView.findViewById(R.id.penilaian_card_view);
         listChildNama = (TextView) itemView.findViewById(R.id.list_nama_riwayat);
         listChildTanggal = (TextView) itemView.findViewById(R.id.list_tanggal_riwayat);
         listChildNilai = (TextView) itemView.findViewById(R.id.list_nilai_riwayat);

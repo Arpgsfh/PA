@@ -1,5 +1,6 @@
 package org.d3ifcool.denver;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -125,10 +127,18 @@ public class RiwayatActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindChildViewHolder(final RiwayatChildViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
+        public void onBindChildViewHolder(final RiwayatChildViewHolder holder, int flatPosition, final ExpandableGroup group, final int childIndex) {
             final RiwayatChild childItem = ((RiwayatParent) group).getItems().get(childIndex);
             holder.onBind(childItem.getNama(), childItem.getTanggal(), childItem.getNilai(), childItem.getnKasar(), childItem.getnHalus(), childItem.nBicara, childItem.nSosialisasi, childItem.getjKasar(), childItem.getjHalus(), childItem.getjBicara(), childItem.jSosialisasi);
 
+            holder.listChildCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RiwayatActivity.this, ReportActivity.class);
+                    intent.putExtra("CHILD", childItem.getId());
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override

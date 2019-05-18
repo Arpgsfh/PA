@@ -40,7 +40,10 @@ public class PenilaianActivity extends AppCompatActivity {
     int nKasar, nHalus, nBicara, nSosialisasi;
     int tKasar=0, tHalus=0, tBicara=0, tSosialisasi=0;
 
-    String id;
+    String[] rPertanyaan;
+    int[] rJawaban;
+
+    String idAkun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class PenilaianActivity extends AppCompatActivity {
         setContentView(R.layout.activity_penilaian);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-        id = acct.getId();
+        idAkun = acct.getId();
 
         database = FirebaseDatabase.getInstance();
 
@@ -69,6 +72,9 @@ public class PenilaianActivity extends AppCompatActivity {
         jSosialisasi = intent.getIntExtra("JS",0);
 
         umur = intent.getIntExtra("UMUR",0);
+
+        rPertanyaan = intent.getStringArrayExtra("RP");
+        rJawaban = intent.getIntArrayExtra("RJ");
 
         penilaianCardView = (CardView) findViewById(R.id.penilaian_card_view);
         skor = (TextView) findViewById(R.id.skor_penilaian);
@@ -130,10 +136,18 @@ public class PenilaianActivity extends AppCompatActivity {
 
                 String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-                DatabaseReference myRef = database.getReference("Riwayat").child(id).child(idProfil).child(String.valueOf(umur));
-                RiwayatChild riwayat = new RiwayatChild(namaProfile, date, nilai, nKasar, nHalus, nBicara, nSosialisasi, jKasar, jHalus, jBicara, jSosialisasi);
+                DatabaseReference myRef = database.getReference("Riwayat").child(idAkun).child(idProfil).child(String.valueOf(umur));
                 String id = myRef.push().getKey();
+                RiwayatChild riwayat = new RiwayatChild(id, namaProfile, date, nilai, nKasar, nHalus, nBicara, nSosialisasi, jKasar, jHalus, jBicara, jSosialisasi);
                 myRef.child(id).setValue(riwayat);
+
+
+                DatabaseReference databaseDetail = database.getReference("Detail").child(idAkun).child(idProfil).child(id);
+                for (int i=1; i< 11; i++){
+                    Report report = new Report(rPertanyaan[i], rJawaban[i]);
+                    databaseDetail.child(String.valueOf(i)).setValue(report);
+
+                }
 
                 startActivity(intent1);
                 finish();

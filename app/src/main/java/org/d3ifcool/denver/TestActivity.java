@@ -38,6 +38,9 @@ public class TestActivity extends AppCompatActivity {
     int jKasar, jHalus, jBicara, jSosialisasi;
     int nKasar, nHalus, nBicara, nSosialisasi;
 
+    String rPertanyaan[] = new String[11];
+    int rJawaban[] = new int[11];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,21 +74,29 @@ public class TestActivity extends AppCompatActivity {
                     nSosialisasi++;
                 }
 
+                if (nomor!=0){
+                    rPertanyaan[nomor] = pertanyaan.getText().toString();
+                    rJawaban[nomor] = 1;
+                }
+
                 reset();
                 nomor++;
                 nilai++;
                 setPertanyaan(nomor);
-
             }
         });
 
         btnTidak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (nomor!=0){
+                    rPertanyaan[nomor] = pertanyaan.getText().toString();
+                    rJawaban[nomor] = 0;
+                }
+
                 reset();
                 nomor++;
                 setPertanyaan(nomor);
-
             }
         });
     }
@@ -156,6 +167,9 @@ public class TestActivity extends AppCompatActivity {
             intent.putExtra("JS",jSosialisasi);
 
             intent.putExtra("UMUR",umur);
+
+            intent.putExtra("RP", rPertanyaan);
+            intent.putExtra("RJ", rJawaban);
             startActivity(intent);
             finish();
         }

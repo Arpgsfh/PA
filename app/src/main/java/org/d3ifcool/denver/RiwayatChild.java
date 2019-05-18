@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class RiwayatChild implements Parcelable {
-    String nama, tanggal;
+    String id, nama, tanggal;
     int nilai;
     int nKasar, nHalus, nBicara, nSosialisasi;
     int jKasar, jHalus, jBicara, jSosialisasi;
@@ -12,7 +12,8 @@ public class RiwayatChild implements Parcelable {
     public RiwayatChild() {
     }
 
-    public RiwayatChild(String nama, String tanggal, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
+    public RiwayatChild(String id, String nama, String tanggal, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
+        this.id = id;
         this.nama = nama;
         this.tanggal = tanggal;
         this.nilai = nilai;
@@ -51,6 +52,10 @@ public class RiwayatChild implements Parcelable {
             return new RiwayatChild[size];
         }
     };
+
+    public String getId() {
+        return id;
+    }
 
     public String getNama() {
         return nama;
