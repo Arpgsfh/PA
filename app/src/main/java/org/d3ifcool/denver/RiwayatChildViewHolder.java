@@ -3,12 +3,13 @@ package org.d3ifcool.denver;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 public class RiwayatChildViewHolder extends ChildViewHolder {
-    public CardView listChildCardView;
+    public LinearLayout listChildCardView;
     public TextView listChildNama;
     public TextView listChildTanggal;
     public TextView listChildNilai;
@@ -16,7 +17,7 @@ public class RiwayatChildViewHolder extends ChildViewHolder {
 
     public RiwayatChildViewHolder(View itemView) {
         super(itemView);
-        listChildCardView = (CardView) itemView.findViewById(R.id.penilaian_card_view);
+        listChildCardView = (LinearLayout) itemView.findViewById(R.id.layoutChildRiwayat);
         listChildNama = (TextView) itemView.findViewById(R.id.list_nama_riwayat);
         listChildTanggal = (TextView) itemView.findViewById(R.id.list_tanggal_riwayat);
         listChildNilai = (TextView) itemView.findViewById(R.id.list_nilai_riwayat);
@@ -24,7 +25,6 @@ public class RiwayatChildViewHolder extends ChildViewHolder {
         listChildNH = (TextView) itemView.findViewById(R.id.skorGerakHalus);
         listChildNB = (TextView) itemView.findViewById(R.id.skorBicara);
         listChildNS = (TextView) itemView.findViewById(R.id.skorSosialisasi);
-
     }
 
     public void onBind(String nama, String tanggal, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {

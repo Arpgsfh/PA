@@ -64,7 +64,7 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Tambah Anak");
+                builder.setTitle("Edit Anak");
 
                 LinearLayout layout = new LinearLayout(context);
                 layout.setOrientation(LinearLayout.VERTICAL);
@@ -110,7 +110,7 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
 
                 builder.setView(layout); // Again this is a set method, not add
 
-                builder.setPositiveButton("Tambah", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -120,7 +120,7 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
                             String id = currentProfil.getId();
                             String nama = titleBox.getText().toString();
                             int hari = myCalendar.get(Calendar.DAY_OF_MONTH);
-                            int bulan = myCalendar.get(Calendar.MONTH)+1;
+                            int bulan = myCalendar.get(Calendar.MONTH);
                             int tahun = myCalendar.get(Calendar.YEAR);
 
                             Umur umur = new Umur(hari, bulan, tahun);
@@ -160,9 +160,6 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
                 editor.putInt("BULAN", currentProfil.getTglLahir().bulan);
                 editor.putInt("HARI", currentProfil.getTglLahir().hari);
                 editor.commit();
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("RELOAD", 1);
-                context.startActivity(intent);
                 ((Activity)context).finish();
             }
         });

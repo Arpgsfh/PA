@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class RiwayatActivity extends AppCompatActivity {
+public class RiwayatActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     public static final String PROFILE = "profile";
     String idProfil;
@@ -53,11 +54,7 @@ public class RiwayatActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         id = acct.getId();
 
-        SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
-        idProfil = prefs.getString("ID", null);namaProfile = prefs.getString("NAMA", null);
-        tahun = prefs.getInt("TAHUN", 0);
-        bulan = prefs.getInt("BULAN", 0);
-        hari = prefs.getInt("HARI", 0);
+        loadProfilPreferences();
 
         ConstraintLayout profilAnak = (ConstraintLayout) findViewById(R.id.profilAnak);
         TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
@@ -66,12 +63,6 @@ public class RiwayatActivity extends AppCompatActivity {
         //Define recycleview
         recycler_view = (RecyclerView) findViewById(R.id.my_recycler_view);
         recycler_view.setLayoutManager(new LinearLayoutManager(this));
-
-        FirebaseApp.initializeApp(this);
-
-        //Initialize your Firebase app
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
 
         namaAnak.setText(namaProfile);
         AgeCalculator();
@@ -85,53 +76,7 @@ public class RiwayatActivity extends AppCompatActivity {
             }
         });
 
-        // Reference to your entire Firebase database
-        final DatabaseReference parentReference = database.getReference("Riwayat").child(id).child(idProfil);
-
-        //reading data from firebase
-        parentReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final List<RiwayatParent> Parent = new ArrayList<>();
-                for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                    final String ParentKey = snapshot.getKey().toString();
-
-                    DatabaseReference childReference = parentReference.child(ParentKey);
-                    childReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            final List<RiwayatChild> Child = new ArrayList<>();
-
-
-                            for (DataSnapshot snapshot1:dataSnapshot.getChildren())
-                            {
-                                RiwayatChild ChildValue =  snapshot1.getValue(RiwayatChild.class);
-                                Child.add(ChildValue);
-
-                            }
-
-                            Parent.add(new RiwayatParent(ParentKey, Child));
-
-                            RiwayatActivity.DocExpandableRecyclerAdapter adapter = new RiwayatActivity.DocExpandableRecyclerAdapter(Parent);
-
-                            recycler_view.setAdapter(adapter);
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError error) {
-                            // Failed to read value
-                            System.out.println("Failed to read value." + error.toException());
-                        }
-
-                    });}}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        loadDatabase();
 
     }
 
@@ -177,6 +122,54 @@ public class RiwayatActivity extends AppCompatActivity {
         }
     }
 
+    public void loadDatabase(){
+        FirebaseApp.initializeApp(this);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference parentReference = database.getReference("Riwayat").child(id).child(idProfil);
+        parentReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<RiwayatParent> Parent = new ArrayList<>();
+                for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    final String ParentKey = snapshot.getKey().toString();
+
+                    DatabaseReference childReference = parentReference.child(ParentKey);
+                    childReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            final List<RiwayatChild> Child = new ArrayList<>();
+                            for (DataSnapshot snapshot1:dataSnapshot.getChildren())
+                            {
+                                RiwayatChild ChildValue =  snapshot1.getValue(RiwayatChild.class);
+                                Child.add(ChildValue);
+
+                            }
+
+                            Parent.add(new RiwayatParent(ParentKey, Child));
+
+                            RiwayatActivity.DocExpandableRecyclerAdapter adapter = new RiwayatActivity.DocExpandableRecyclerAdapter(Parent);
+
+                            recycler_view.setAdapter(adapter);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            // Failed to read value
+                            System.out.println("Failed to read value." + error.toException());
+                        }
+
+                    });}}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void AgeCalculator(){
         Calendar now = Calendar.getInstance();
         years = now.get(Calendar.YEAR) - tahun;
@@ -194,5 +187,30 @@ public class RiwayatActivity extends AppCompatActivity {
         if (days<=0){
             months++;
         }
+    }
+
+    public void loadProfilPreferences(){
+        SharedPreferences preferences = getSharedPreferences(PROFILE, MODE_PRIVATE);
+        TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
+        TextView umurAnak = (TextView) findViewById(R.id.umurTextView);
+
+        idProfil = preferences.getString("ID", null);
+        namaProfile = preferences.getString("NAMA", null);
+        tahun = preferences.getInt("TAHUN", 0);
+        bulan = preferences.getInt("BULAN", 0);
+        hari = preferences.getInt("HARI", 0);
+
+        namaAnak.setText(namaProfile);
+        AgeCalculator();
+        umurAnak.setText(months+" Bulan");
+
+        preferences.registerOnSharedPreferenceChangeListener(RiwayatActivity.this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        loadProfilPreferences();
+        recycler_view.setAdapter(null);
+        loadDatabase();
     }
 }

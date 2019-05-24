@@ -53,16 +53,14 @@ public class MainActivity extends AppCompatActivity {
         TextView akun = (TextView) findViewById(R.id.akun);
         TextView logOut = (TextView) findViewById(R.id.logOut);
         TextView namaProfileTextButton = (TextView) findViewById(R.id.namaAnakTextView);
-        Button ubahProfileButton = (Button) findViewById(R.id.ubahProfile);
         Button testButton = (Button) findViewById(R.id.testBtn);
         Button stimulasiButton = (Button) findViewById(R.id.stimulasiBtn);
         Button riwayatButton = (Button) findViewById(R.id.riwayatBtn);
+        Button tentangButton = (Button) findViewById(R.id.aboutBtn);
 
         final SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
         idProfil = prefs.getString("ID", null);
         namaProfile = prefs.getString("NAMA", null);
-
-        namaProfileTextButton.setText(namaProfile);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
@@ -84,14 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
                 finish();
-            }
-        });
-
-        ubahProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent testIntent = new Intent(MainActivity.this, ProfilAnakActivity.class);
-                startActivity(testIntent);
             }
         });
 
@@ -118,6 +108,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent riwayatIntent = new Intent(MainActivity.this, RiwayatActivity.class);
                 startActivity(riwayatIntent);
+            }
+        });
+
+        tentangButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tentangIntent = new Intent(MainActivity.this, TentangActivity.class);
+                startActivity(tentangIntent);
             }
         });
 

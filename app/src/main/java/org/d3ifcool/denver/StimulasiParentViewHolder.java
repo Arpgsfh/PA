@@ -66,13 +66,29 @@ public class StimulasiParentViewHolder extends GroupViewHolder implements View.O
         button.setAnimation(rotate);
     }
 
+    public void setExpanded(boolean expanded) {
+        RotateAnimation rotateAnimation;
+        if (expanded) { // rotate clockwise
+            rotateAnimation = new RotateAnimation(0, 180,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        } else { // rotate counterclockwise
+            rotateAnimation = new RotateAnimation(180, 0,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        }
+        rotateAnimation.setDuration(200);
+        rotateAnimation.setFillAfter(true);
+        button.startAnimation(rotateAnimation);
+    }
+
     @Override
     public void onClick(View v) {
         if (listener != null){
             if (listener.onGroupClick(getAdapterPosition())){
-                animateCollapse();
+                setExpanded(false);
             }else {
-                animateExpand();
+                setExpanded(true);
             }
         }
     }

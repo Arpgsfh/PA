@@ -18,6 +18,9 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.RiwayatV
     private Context context;
     private List<Riwayat> riwayatList;
 
+    public RiwayatAdapter() {
+    }
+
     public RiwayatAdapter(Context context, List<Riwayat> riwayatList) {
         this.context = context;
         this.riwayatList = riwayatList;

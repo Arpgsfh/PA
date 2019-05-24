@@ -45,42 +45,28 @@ public class StimulasiActivity extends AppCompatActivity {
         tampilSK = intent.getIntExtra("SK",0);
 
         FirebaseApp.initializeApp(this);
-
-        //Initialize your Firebase app
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        // Reference to your entire Firebase database
         final DatabaseReference parentReference = database.getReference("Stimulasi").child(String.valueOf(umur));
-
-        //reading data from firebase
         parentReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<StimulasiParent> Parent = new ArrayList<>();
                 for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
-
                     final String ParentKey = snapshot.getKey().toString();
-
                     DatabaseReference childReference = parentReference.child(ParentKey);
                     childReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             final List<StimulasiChild> Child = new ArrayList<>();
 
-
                             for (DataSnapshot snapshot1:dataSnapshot.getChildren())
                             {
                                 StimulasiChild ChildValue =  snapshot1.getValue(StimulasiChild.class);
                                 Child.add(ChildValue);
-
                             }
-
                             Parent.add(new StimulasiParent(ParentKey, Child));
-
                             DocExpandableRecyclerAdapter adapter = new DocExpandableRecyclerAdapter(Parent);
-
                             recycler_view.setAdapter(adapter);
-
                         }
 
                         @Override

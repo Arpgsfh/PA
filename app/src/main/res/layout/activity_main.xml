@@ -102,32 +102,4 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/riwayatBtn" />
 
-    <Button
-        android:id="@+id/ubahProfile"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginRight="68dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/button_bg"
-        android:text="Ubah"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/stimulasiBtn"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/namaAnakTextView"
-        android:layout_width="242dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:gravity="center"
-        android:text="Profile : "
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/ubahProfile"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ubahProfile" />
-
 </android.support.constraint.ConstraintLayout>

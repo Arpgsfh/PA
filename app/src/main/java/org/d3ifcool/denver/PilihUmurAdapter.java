@@ -56,24 +56,32 @@ public class PilihUmurAdapter extends BaseAdapter {
         grid = inflater.inflate(R.layout.gridview_item, null);
         TextView textView = (TextView) grid.findViewById(R.id.judul);
 
-        if (Integer.valueOf(mThumbIds[position])>months){
-            grid.setBackground(mContext.getResources().getDrawable(R.drawable.grid_bg_non));
+        switch (menu){
+            case 1:
+                if (Integer.valueOf(mThumbIds[position])>months){
+                    grid.setBackground(mContext.getResources().getDrawable(R.drawable.grid_bg_non));
 
-        }else {
-            grid.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (menu==1){
-                        Intent intentTest = new Intent(mContext, TestActivity.class);
-                        intentTest.putExtra("UMUR",Integer.valueOf(mThumbIds[position]));
-                        mContext.startActivity(intentTest);
-                    }else if (menu==2){
+                }else {
+                    grid.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intentTest = new Intent(mContext, TestActivity.class);
+                            intentTest.putExtra("UMUR",Integer.valueOf(mThumbIds[position]));
+                            mContext.startActivity(intentTest);
+                        }
+                    });
+                }
+                break;
+            case 2:
+                grid.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         Intent intentStimulasi = new Intent(mContext, StimulasiActivity.class);
                         intentStimulasi.putExtra("UMUR",Integer.valueOf(mThumbIds[position]));
                         mContext.startActivity(intentStimulasi);
                     }
-                }
-            });
+                });
+                break;
         }
 
         textView.setText(mThumbIds[position]);
@@ -82,8 +90,9 @@ public class PilihUmurAdapter extends BaseAdapter {
     }
 
     private String[] mThumbIds = {
-            "3", "6",
-            "9", "12",
-            "15", "18"
+            "3", "6", "9", "12",
+            "15", "18", "21", "24",
+            "30", "36", "42", "48",
+            "54", "60", "66", "72"
     };
 }
