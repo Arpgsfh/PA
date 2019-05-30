@@ -62,19 +62,25 @@ public class TestActivity extends AppCompatActivity {
         btnIya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (kategori==1){
-                    nKasar++;
-                }else if (kategori==2){
-                    nHalus++;
-                }else if (kategori==3){
-                    nBicara++;
-                }else if (kategori==4){
-                    nSosialisasi++;
+
+                switch (kategori){
+                    case 1:
+                        nKasar++;
+                        break;
+                    case 2:
+                        nHalus++;
+                        break;
+                    case 3:
+                        nBicara++;
+                        break;
+                    case 4:
+                        nSosialisasi++;
+                        break;
                 }
 
                 if (nomor!=0){
                     rPertanyaan[nomor] = pertanyaan.getText().toString();
-                    rJawaban[nomor] = 1;
+                    rJawaban[nomor] = 0;
                 }
 
                 reset();
@@ -111,24 +117,30 @@ public class TestActivity extends AppCompatActivity {
                     pertanyaan.setText(test.pertanyaan.replace("_b","\n"));
 
                     kategori = test.kategori;
-                    if (kategori==1){
-                        jKasar++;
-                        textViewKategori.setText("Gerak Kasar");
-                        cardView.setCardBackgroundColor(getResources().getColor(R.color.green));
-                    }else if (kategori==2){
-                        jHalus++;
-                        textViewKategori.setText("Gerak Halus");
-                        cardView.setCardBackgroundColor(getResources().getColor(R.color.blue));
-                    }else if (kategori==3){
-                        jBicara++;
-                        textViewKategori.setText("Bicara dan Bahasa");
-                        cardView.setCardBackgroundColor(getResources().getColor(R.color.red));
-                    }else if (kategori==4){
-                        jSosialisasi++;
-                        textViewKategori.setText("Sosialisasi dan Kemandirian");
-                        cardView.setCardBackgroundColor(getResources().getColor(R.color.yellow));
-                    }else {
-                        textViewKategori.setText("Alat dan Bahan");
+                    switch (kategori){
+                        case 0:
+                            textViewKategori.setText("Alat dan Bahan");
+                            break;
+                        case 1:
+                            jKasar++;
+                            textViewKategori.setText("Gerak Kasar");
+                            cardView.setCardBackgroundColor(getResources().getColor(R.color.green));
+                            break;
+                        case 2:
+                            jHalus++;
+                            textViewKategori.setText("Gerak Halus");
+                            cardView.setCardBackgroundColor(getResources().getColor(R.color.blue));
+                            break;
+                        case 3:
+                            jBicara++;
+                            textViewKategori.setText("Bicara dan Bahasa");
+                            cardView.setCardBackgroundColor(getResources().getColor(R.color.red));
+                            break;
+                        case 4:
+                            jSosialisasi++;
+                            textViewKategori.setText("Sosialisasi dan Kemandirian");
+                            cardView.setCardBackgroundColor(getResources().getColor(R.color.yellow));
+                            break;
                     }
 
                     Picasso.with(TestActivity.this)

@@ -32,25 +32,9 @@ public class RiwayatParentViewHolder extends GroupViewHolder implements View.OnC
 
     public void setParentTitle(ExpandableGroup group) {
         String kategori=group.getTitle();
-        listGroup.setText("Test Bulan ke-"+kategori);
+        listGroup.setText("Riwayat Bulan ke-"+kategori);
 
 
-    }
-
-    private void animateExpand() {
-        RotateAnimation rotate =
-                new RotateAnimation(360, 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(300);
-        rotate.setFillAfter(true);
-        button.setAnimation(rotate);
-    }
-
-    private void animateCollapse() {
-        RotateAnimation rotate =
-                new RotateAnimation(180, 360, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(300);
-        rotate.setFillAfter(true);
-        button.setAnimation(rotate);
     }
 
     @Override

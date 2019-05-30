@@ -101,23 +101,28 @@ public class StimulasiActivity extends AppCompatActivity {
         public StimulasiChildViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_child_stimulasi, parent, false);
             return new StimulasiChildViewHolder(view);
+
         }
 
         @Override
         public void onBindChildViewHolder(final StimulasiChildViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
             final StimulasiChild childItem = ((StimulasiParent) group).getItems().get(childIndex);
             holder.onBind(childItem.getTahapan(), childItem.getStimulasi());
-            final String TitleChild=group.getTitle();
-
-            holder.listChildStimulasi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast toast = Toast.makeText(getApplicationContext(), TitleChild, Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
-            });
-
+            final String title = group.getTitle();
+            switch (title){
+                case "1":
+                    holder.layoutChildStimulasi.setBackgroundColor(getResources().getColor(R.color.green));
+                    break;
+                case "2":
+                    holder.layoutChildStimulasi.setBackgroundColor(getResources().getColor(R.color.blue));
+                    break;
+                case "3":
+                    holder.layoutChildStimulasi.setBackgroundColor(getResources().getColor(R.color.red));
+                    break;
+                case "4":
+                    holder.layoutChildStimulasi.setBackgroundColor(getResources().getColor(R.color.yellow));
+                    break;
+            }
         }
 
         @Override

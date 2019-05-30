@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     public static final String PROFILE = "profile";
     String idProfil;
@@ -58,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Button riwayatButton = (Button) findViewById(R.id.riwayatBtn);
         Button tentangButton = (Button) findViewById(R.id.aboutBtn);
 
-        final SharedPreferences prefs = getSharedPreferences(PROFILE, MODE_PRIVATE);
-        idProfil = prefs.getString("ID", null);
-        namaProfile = prefs.getString("NAMA", null);
+        loadProfilPreferences();
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
@@ -145,9 +144,21 @@ public class MainActivity extends AppCompatActivity {
             if (idProfil==null){
                 Intent intentProfil = new Intent(MainActivity.this, ProfilAnakActivity.class);
                 startActivity(intentProfil);
-                finish();
             }
         }
+    }
+
+    public void loadProfilPreferences(){
+        SharedPreferences preferences = getSharedPreferences(PROFILE, MODE_PRIVATE);
+        idProfil = preferences.getString("ID", null);
+        namaProfile = preferences.getString("NAMA", null);
+
+        preferences.registerOnSharedPreferenceChangeListener(MainActivity.this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        loadProfilPreferences();
     }
 
 

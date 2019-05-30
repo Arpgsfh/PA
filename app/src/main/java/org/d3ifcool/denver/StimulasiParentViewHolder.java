@@ -23,7 +23,6 @@ public class StimulasiParentViewHolder extends GroupViewHolder implements View.O
 
     public StimulasiParentViewHolder(View itemView) {
         super(itemView);
-        cardView = (CardView) itemView.findViewById(R.id.stimulasi_card_view);
         layout = (ConstraintLayout) itemView.findViewById(R.id.layout);
         button = (View) itemView.findViewById(R.id.button);
         listGroup = (TextView) itemView.findViewById(R.id.listParent);
@@ -34,36 +33,24 @@ public class StimulasiParentViewHolder extends GroupViewHolder implements View.O
     public void setParentTitle(ExpandableGroup group) {
         String kategori=group.getTitle();
 
-        if (kategori.equalsIgnoreCase("1")){
-            cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.green));
-            listGroup.setText("Gerak Kasar");
-        }else if (kategori.equalsIgnoreCase("2")){
-            cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.blue));
-            listGroup.setText("Gerak Halus");
-        }else if (kategori.equalsIgnoreCase("3")){
-            cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.red));
-            listGroup.setText("Bicara dan Bahasa");
-        }else {
-            cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.yellow));
-            listGroup.setText("Sosialisasi dan Kemandirian");
+        switch (kategori){
+            case "1":
+                layout.setBackgroundColor(itemView.getResources().getColor(R.color.green));
+                listGroup.setText("Gerak Kasar");
+                break;
+            case "2":
+                layout.setBackgroundColor(itemView.getResources().getColor(R.color.blue));
+                listGroup.setText("Gerak Halus");
+                break;
+            case "3":
+                layout.setBackgroundColor(itemView.getResources().getColor(R.color.red));
+                listGroup.setText("Bicara dan Bahasa");
+                break;
+            case "4":
+                layout.setBackgroundColor(itemView.getResources().getColor(R.color.yellow));
+                listGroup.setText("Sosialisasi dan Kemandirian");
+                break;
         }
-
-    }
-
-    private void animateExpand() {
-        RotateAnimation rotate =
-                new RotateAnimation(360, 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(300);
-        rotate.setFillAfter(true);
-        button.setAnimation(rotate);
-    }
-
-    private void animateCollapse() {
-        RotateAnimation rotate =
-                new RotateAnimation(180, 360, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(300);
-        rotate.setFillAfter(true);
-        button.setAnimation(rotate);
     }
 
     public void setExpanded(boolean expanded) {
