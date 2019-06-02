@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.d3ifcool.denver.PilihUmurActivity"
-    android:background="@drawable/pilihumur_bg">
+    android:background="@drawable/test_bg">
 
     <GridView
         android:id="@+id/gridView"
