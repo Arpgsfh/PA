@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,11 +30,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     public static final String PROFILE = "profile";
     String idProfil;
     String namaProfile;
+    int tahun, bulan, hari;
+    int years = 0;
+    int months = 0;
+    int days = 0;
 
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
@@ -50,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        ConstraintLayout profilAnak = (ConstraintLayout) findViewById(R.id.profilAnak);
         ImageView signOut = (ImageView) findViewById(R.id.button_sign_out);
         TextView akun = (TextView) findViewById(R.id.akun);
         TextView logOut = (TextView) findViewById(R.id.logOut);
@@ -71,6 +81,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     .load(personPhoto.toString())
                     .into(signOut);
         }
+
+        profilAnak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MainActivity.this, ProfilAnakActivity.class);
+                startActivity(intent1);
+            }
+        });
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,10 +166,37 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
+    public void AgeCalculator(){
+        Calendar now = Calendar.getInstance();
+        years = now.get(Calendar.YEAR) - tahun;
+        months = now.get(Calendar.MONTH) - bulan;
+
+        if (months<0){
+            years--;
+            months = 12 + months;
+        }
+        months = (years*12) + months;
+        days = now.get(Calendar.DAY_OF_MONTH) - hari;
+
+        if (days<=0){
+            months++;
+        }
+    }
+
     public void loadProfilPreferences(){
         SharedPreferences preferences = getSharedPreferences(PROFILE, MODE_PRIVATE);
+        TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
+        TextView umurAnak = (TextView) findViewById(R.id.umurTextView);
+
         idProfil = preferences.getString("ID", null);
         namaProfile = preferences.getString("NAMA", null);
+        tahun = preferences.getInt("TAHUN", 0);
+        bulan = preferences.getInt("BULAN", 0);
+        hari = preferences.getInt("HARI", 0);
+
+        namaAnak.setText(namaProfile);
+        AgeCalculator();
+        umurAnak.setText(months+" Bulan");
 
         preferences.registerOnSharedPreferenceChangeListener(MainActivity.this);
     }
@@ -160,6 +205,4 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         loadProfilPreferences();
     }
-
-
 }

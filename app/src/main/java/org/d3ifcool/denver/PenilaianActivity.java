@@ -42,6 +42,7 @@ public class PenilaianActivity extends AppCompatActivity {
 
     String[] rPertanyaan;
     int[] rJawaban;
+    boolean lulus = false;
 
     String idAkun;
 
@@ -106,6 +107,7 @@ public class PenilaianActivity extends AppCompatActivity {
         }
 
         if (nilai>8){
+            lulus=true;
             penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.green));
             penilaian.setText("Selamat, perkembangan anak Anda Sesuai.");
             button.setText("Lanjut");
@@ -141,13 +143,14 @@ public class PenilaianActivity extends AppCompatActivity {
                 RiwayatChild riwayat = new RiwayatChild(id, namaProfile, date, nilai, nKasar, nHalus, nBicara, nSosialisasi, jKasar, jHalus, jBicara, jSosialisasi);
                 myRef.child(id).setValue(riwayat);
 
-
                 DatabaseReference databaseDetail = database.getReference("Detail").child(idAkun).child(idProfil).child(id);
-                for (int i=1; i< 11; i++){
+                for (int i=0; i< 10; i++){
                     Report report = new Report(rPertanyaan[i], rJawaban[i]);
                     databaseDetail.child(String.valueOf(i)).setValue(report);
-
                 }
+
+                DatabaseReference databaseUmur = database.getReference("Umur").child(idAkun).child(idProfil).child(String.valueOf(umur));
+                databaseUmur.setValue(lulus);
 
                 startActivity(intent1);
                 finish();

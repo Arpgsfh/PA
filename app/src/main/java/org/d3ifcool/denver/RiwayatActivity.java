@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
@@ -135,8 +136,10 @@ public class RiwayatActivity extends AppCompatActivity implements SharedPreferen
 
                     final String ParentKey = snapshot.getKey().toString();
 
+                    Query query;
                     DatabaseReference childReference = parentReference.child(ParentKey);
-                    childReference.addValueEventListener(new ValueEventListener() {
+                    query = childReference;
+                    query.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             final List<RiwayatChild> Child = new ArrayList<>();
