@@ -101,8 +101,8 @@ public class RiwayatActivity extends AppCompatActivity implements SharedPreferen
 
         @Override
         public void onBindChildViewHolder(final RiwayatChildViewHolder holder, int flatPosition, final ExpandableGroup group, final int childIndex) {
-            final RiwayatChild childItem = ((RiwayatParent) group).getItems().get(childIndex);
-            holder.onBind(childItem.getNama(), childItem.getTanggal(), childItem.getNilai(), childItem.getnKasar(), childItem.getnHalus(), childItem.nBicara, childItem.nSosialisasi, childItem.getjKasar(), childItem.getjHalus(), childItem.getjBicara(), childItem.jSosialisasi);
+            final RiwayatChild childItem = ((RiwayatParent) group).getItems().get((group.getItemCount() - 1) - childIndex);
+            holder.onBind(childItem.getNama(), childItem.getTanggal(), childItem.getKet(), childItem.getNilai(), childItem.getnKasar(), childItem.getnHalus(), childItem.nBicara, childItem.nSosialisasi, childItem.getjKasar(), childItem.getjHalus(), childItem.getjBicara(), childItem.jSosialisasi);
 
             holder.listChildCardView.setOnClickListener(new View.OnClickListener() {
                 @Override

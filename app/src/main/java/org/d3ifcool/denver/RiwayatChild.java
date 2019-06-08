@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class RiwayatChild implements Parcelable {
-    String id, nama, tanggal;
+    String id, nama, tanggal, ket;
     int nilai;
     int nKasar, nHalus, nBicara, nSosialisasi;
     int jKasar, jHalus, jBicara, jSosialisasi;
@@ -12,10 +12,11 @@ public class RiwayatChild implements Parcelable {
     public RiwayatChild() {
     }
 
-    public RiwayatChild(String id, String nama, String tanggal, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
+    public RiwayatChild(String id, String nama, String tanggal, String ket, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
         this.id = id;
         this.nama = nama;
         this.tanggal = tanggal;
+        this.ket = ket;
         this.nilai = nilai;
         this.nKasar = nKasar;
         this.nHalus = nHalus;
@@ -30,6 +31,7 @@ public class RiwayatChild implements Parcelable {
     protected RiwayatChild(Parcel in) {
         nama = in.readString();
         tanggal = in.readString();
+        ket = in.readString();
         nilai = in.readInt();
         nKasar = in.readInt();
         nHalus = in.readInt();
@@ -71,6 +73,14 @@ public class RiwayatChild implements Parcelable {
 
     public void setTanggal(String tanggal) {
         this.tanggal = tanggal;
+    }
+
+    public String getKet() {
+        return ket;
+    }
+
+    public void setKet(String ket) {
+        this.ket = ket;
     }
 
     public int getNilai() {

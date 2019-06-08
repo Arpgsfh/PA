@@ -1,7 +1,6 @@
 package org.d3ifcool.denver;
 
-import android.content.Intent;
-import android.support.v7.widget.CardView;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,7 +8,7 @@ import android.widget.TextView;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 public class RiwayatChildViewHolder extends ChildViewHolder {
-    public LinearLayout listChildCardView;
+    public ConstraintLayout listChildCardView;
     public TextView listChildNama;
     public TextView listChildTanggal;
     public TextView listChildNilai;
@@ -17,8 +16,8 @@ public class RiwayatChildViewHolder extends ChildViewHolder {
 
     public RiwayatChildViewHolder(View itemView) {
         super(itemView);
-        listChildCardView = (LinearLayout) itemView.findViewById(R.id.layoutChildRiwayat);
-        listChildNama = (TextView) itemView.findViewById(R.id.list_nama_riwayat);
+        listChildCardView = (ConstraintLayout) itemView.findViewById(R.id.layoutChildRiwayat);
+        listChildNama = (TextView) itemView.findViewById(R.id.list_ket_riwayat);
         listChildTanggal = (TextView) itemView.findViewById(R.id.list_tanggal_riwayat);
         listChildNilai = (TextView) itemView.findViewById(R.id.list_nilai_riwayat);
         listChildNK = (TextView) itemView.findViewById(R.id.skorGerakKasar);
@@ -27,8 +26,8 @@ public class RiwayatChildViewHolder extends ChildViewHolder {
         listChildNS = (TextView) itemView.findViewById(R.id.skorSosialisasi);
     }
 
-    public void onBind(String nama, String tanggal, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
-        listChildNama.setText(nama);
+    public void onBind(String nama, String tanggal, String ket, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
+        listChildNama.setText(ket);
         listChildTanggal.setText(tanggal);
         listChildNilai.setText(String.valueOf(nilai)+" /10");
         listChildNK.setText(String.valueOf(nKasar+" /"+jKasar));
