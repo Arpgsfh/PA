@@ -3,6 +3,7 @@ package org.d3ifcool.denver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,19 +12,46 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class PilihUmurActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-    int[] mThumbIds = {
-            3, 6, 9, 12,
-            15, 18, 21, 24,
-            30, 36, 42, 48,
-            54, 60, 66, 72
+
+    FirebaseDatabase database;
+
+    private String[] mThumbIds = new String[]{
+            "3", "6", "9", "12",
+            "15", "18", "21", "24",
+            "30", "36", "42", "48",
+            "54", "60", "66", "72"
     };
+
+    List<String> mThumbs = Arrays.asList(
+            "3", "6", "9", "12",
+            "15", "18", "21", "24",
+            "30", "36", "42", "48",
+            "54", "60", "66", "72");
+
+    List<Boolean> lulusList = Arrays.asList(
+            false, false, false, false,
+            false, false, false, false,
+            false, false, false, false,
+            false, false, false, false);
 
     public static final String PROFILE = "profile";
     String idProfil;
@@ -38,12 +66,19 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
     GridView gridview;
 
     Boolean umur;
+
+    String idAkun;
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pilih_umur);
 
         ConstraintLayout profilAnak = (ConstraintLayout) findViewById(R.id.profilAnak);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        idAkun = acct.getId();
+
+        database = FirebaseDatabase.getInstance();
 
         loadProfilPreferences();
 
@@ -52,7 +87,7 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
 
         gridview = (GridView) findViewById(R.id.gridView);
 
-        gridview.setAdapter(new PilihUmurAdapter(this, months, menu));
+        loadDatabase();
 
         profilAnak.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +97,31 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
             }
         });
 
+    }
+
+    public void loadDatabase(){
+        DatabaseReference databaseUmur = database.getReference("Umur").child(idAkun).child(idProfil);
+
+        databaseUmur.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Boolean pass;
+                for (DataSnapshot profilAnakSnapshot : dataSnapshot.getChildren()){
+                    pass = profilAnakSnapshot.getValue(Boolean.class);
+                    if (pass==true){
+                        lulusList.set(mThumbs.indexOf(profilAnakSnapshot.getKey()), pass);
+                    }
+                }
+
+                PilihUmurAdapter pilihUmurAdapter = new PilihUmurAdapter(PilihUmurActivity.this, months, menu, lulusList);
+                gridview.setAdapter(pilihUmurAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     public void AgeCalculator(){
@@ -97,7 +157,7 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
         umurAnak.setText(months+" Bulan");
 
         gridview = (GridView) findViewById(R.id.gridView);
-        gridview.setAdapter(new PilihUmurAdapter(this, months, menu));
+        loadDatabase();
 
         preferences.registerOnSharedPreferenceChangeListener(PilihUmurActivity.this);
     }
