@@ -16,41 +16,48 @@
         app:layout_constraintBottom_toTopOf="@+id/testBtn"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/namaAnakTextView"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:text="Diki Iskandar"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/umurTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
-            android:text="27 Maret 1998"
-            android:textSize="15sp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/namaAnakTextView"
-            app:layout_constraintTop_toBottomOf="@+id/namaAnakTextView" />
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/namaAnakTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Diki Iskandar"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/umurTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:text="Umur 3 Bulan"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/umurTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/namaAnakTextView"
-            app:layout_constraintTop_toTopOf="@+id/namaAnakTextView" />
+            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
     </android.support.constraint.ConstraintLayout>
 

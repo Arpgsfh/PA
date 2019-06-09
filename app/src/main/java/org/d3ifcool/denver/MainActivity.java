@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         namaAnak.setText(namaProfile);
         AgeCalculator();
-        umurAnak.setText(months+" Bulan");
+        umurAnak.setText("Umur "+months+" Bulan");
 
         preferences.registerOnSharedPreferenceChangeListener(MainActivity.this);
     }
