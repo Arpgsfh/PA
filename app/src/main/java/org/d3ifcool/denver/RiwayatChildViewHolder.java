@@ -13,6 +13,7 @@ public class RiwayatChildViewHolder extends ChildViewHolder {
     public TextView listChildTanggal;
     public TextView listChildNilai;
     public TextView listChildNK, listChildNH, listChildNB, listChildNS;
+    public TextView lihatDetailBtn;
 
     public RiwayatChildViewHolder(View itemView) {
         super(itemView);
@@ -24,6 +25,8 @@ public class RiwayatChildViewHolder extends ChildViewHolder {
         listChildNH = (TextView) itemView.findViewById(R.id.skorGerakHalus);
         listChildNB = (TextView) itemView.findViewById(R.id.skorBicara);
         listChildNS = (TextView) itemView.findViewById(R.id.skorSosialisasi);
+        lihatDetailBtn = (TextView) itemView.findViewById(R.id.lihatDetailBtn);
+
     }
 
     public void onBind(String nama, String tanggal, String ket, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {

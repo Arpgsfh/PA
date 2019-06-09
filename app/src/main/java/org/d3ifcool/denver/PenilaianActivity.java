@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -136,13 +137,12 @@ public class PenilaianActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
+                String tanggal = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(new Date());
                 String ket = penilaian.getText().toString();
 
                 DatabaseReference myRef = database.getReference("Riwayat").child(idAkun).child(idProfil).child(String.valueOf(umur));
                 String id = myRef.push().getKey();
-                RiwayatChild riwayat = new RiwayatChild(id, namaProfile, date, ket, nilai, nKasar, nHalus, nBicara, nSosialisasi, jKasar, jHalus, jBicara, jSosialisasi);
+                RiwayatChild riwayat = new RiwayatChild(id, namaProfile, tanggal, ket, nilai, nKasar, nHalus, nBicara, nSosialisasi, jKasar, jHalus, jBicara, jSosialisasi);
                 myRef.child(id).setValue(riwayat);
 
                 DatabaseReference databaseDetail = database.getReference("Detail").child(idAkun).child(idProfil).child(id);

@@ -9,4 +9,6 @@
     <color name="yellow">#FFF9DD</color>
     <color name="red">#FFDDE1</color>
     <color name="blue">#DDE4FF</color>
+    <color name="blue_link">#0034FF</color>
+
 </resources>

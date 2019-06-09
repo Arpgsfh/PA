@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
-            akun.setText("Hai!!, "+acct.getDisplayName());;
+            akun.setText(acct.getEmail());;
 
             Uri personPhoto = acct.getPhotoUrl();
 

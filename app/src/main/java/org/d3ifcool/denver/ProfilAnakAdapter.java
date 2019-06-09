@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -177,8 +179,8 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
         public TextView noTextView;
         public TextView namaTextView;
         public TextView umurTextView;
-        public Button editButton;
-        public Button deleteButton;
+        public ImageView editButton;
+        public ImageView deleteButton;
 
         public ProfilAnakViewHolder(View itemView) {
             super(itemView);
@@ -189,8 +191,8 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
             noTextView = (TextView) itemView.findViewById(R.id.noAnakTextView);
             namaTextView = (TextView) itemView.findViewById(R.id.namaAnakTextView);
             umurTextView = (TextView) itemView.findViewById(R.id.umurTextView);
-            editButton = (Button) itemView.findViewById(R.id.editButton);
-            deleteButton = (Button) itemView.findViewById(R.id.deleteButton);
+            editButton = (ImageView) itemView.findViewById(R.id.editButton);
+            deleteButton = (ImageView) itemView.findViewById(R.id.deleteButton);
         }
     }
 }

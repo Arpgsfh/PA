@@ -13,15 +13,17 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/lihatDetailBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:textColor="@color/blue"
-        android:text="Lihat detail..."
+        android:background="@color/colorPrimary"
+        android:drawableRight="@drawable/ic_keyboard_arrow_right_blue_24dp"
+        android:text="Lihat detail.."
+        android:textColor="@color/blue_link"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
