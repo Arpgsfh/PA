@@ -107,7 +107,8 @@ public class StimulasiActivity extends AppCompatActivity {
         @Override
         public void onBindChildViewHolder(final StimulasiChildViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
             final StimulasiChild childItem = ((StimulasiParent) group).getItems().get(childIndex);
-            holder.onBind(childItem.getTahapan(), childItem.getStimulasi());
+            holder.onBind(childItem.getTahapan(), childItem.getStimulasi(), childItem.getImageUrl());
+
             final String title = group.getTitle();
             switch (title){
                 case "1":
@@ -137,9 +138,6 @@ public class StimulasiActivity extends AppCompatActivity {
                 holder.layout.setVisibility(View.GONE);
             }else if (tampilSK==1 && flatPosition==3){
                 holder.layout.setVisibility(View.GONE);
-            }
-
-            if(group.getItems()==null) {
             }
         }
     }

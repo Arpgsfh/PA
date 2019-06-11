@@ -1,11 +1,13 @@
 package org.d3ifcool.denver;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class StimulasiChild implements Parcelable {
     private String tahapan;
     private String stimulasi;
+    private String imageUrl;
 
     public StimulasiChild() {
     }
@@ -15,9 +17,16 @@ public class StimulasiChild implements Parcelable {
         this.stimulasi = stimulasi;
     }
 
+    public StimulasiChild(String tahapan, String stimulasi, String imageUrl) {
+        this.tahapan = tahapan;
+        this.stimulasi = stimulasi;
+        this.imageUrl = imageUrl;
+    }
+
     protected StimulasiChild(Parcel in) {
         tahapan = in.readString();
         stimulasi = in.readString();
+        imageUrl = in.readString();
     }
 
     public static final Creator<StimulasiChild> CREATOR = new Creator<StimulasiChild>() {
@@ -48,6 +57,14 @@ public class StimulasiChild implements Parcelable {
         this.stimulasi = stimulasi;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -57,5 +74,6 @@ public class StimulasiChild implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(tahapan);
         parcel.writeString(stimulasi);
+        parcel.writeString(imageUrl);
     }
 }
