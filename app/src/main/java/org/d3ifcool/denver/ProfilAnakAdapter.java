@@ -32,6 +32,9 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
 
     DatabaseReference databaseProfilAnak;
     DatabaseReference databaseRiwayat;
+    DatabaseReference databaseDetail;
+    DatabaseReference databaseUmur;
+
 
     final Calendar myCalendar = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -149,6 +152,8 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
                 currentProfil.getId();
                 databaseProfilAnak.child(currentProfil.id).removeValue();
                 databaseRiwayat.child(currentProfil.id).removeValue();
+                databaseDetail.child(currentProfil.id).removeValue();
+                databaseUmur.child(currentProfil.id).removeValue();
             }
         });
 
@@ -187,6 +192,8 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
 
             databaseProfilAnak = FirebaseDatabase.getInstance().getReference("Profil Anak").child(id);
             databaseRiwayat = FirebaseDatabase.getInstance().getReference("Riwayat").child(id);
+            databaseDetail = FirebaseDatabase.getInstance().getReference("Detail").child(id);
+            databaseUmur = FirebaseDatabase.getInstance().getReference("Umur").child(id);
 
             noTextView = (TextView) itemView.findViewById(R.id.noAnakTextView);
             namaTextView = (TextView) itemView.findViewById(R.id.namaAnakTextView);
