@@ -3,6 +3,7 @@ package org.d3ifcool.denver;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class ProfilAnakActivity extends AppCompatActivity {
     DatabaseReference databaseProfilAnak;
 
     ProfilAnakAdapter mAdapter;
+    ConstraintLayout emptyView;
     RecyclerView recyclerView;
     List<ProfilAnak> profilAnaks;
 
@@ -58,6 +60,7 @@ public class ProfilAnakActivity extends AppCompatActivity {
 
         mAdapter = new ProfilAnakAdapter(this, id, profilAnaks);
 
+        emptyView = (ConstraintLayout) findViewById(R.id.emptyView);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerProfil);
         tambah = (FloatingActionButton) findViewById(R.id.tambahProfil);
 
@@ -144,13 +147,14 @@ public class ProfilAnakActivity extends AppCompatActivity {
         databaseProfilAnak.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 profilAnaks.clear();
 
                 for (DataSnapshot profilAnakSnapshot : dataSnapshot.getChildren()){
                     ProfilAnak profilAnak = profilAnakSnapshot.getValue(ProfilAnak.class);
                     profilAnaks.add(profilAnak);
                 }
+
+                emptyView.setVisibility(profilAnaks.isEmpty() ? View.VISIBLE : View.GONE);
 
                 if (this != null){
                     ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, id, profilAnaks);

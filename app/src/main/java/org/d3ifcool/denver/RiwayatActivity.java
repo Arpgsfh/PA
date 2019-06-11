@@ -2,7 +2,6 @@ package org.d3ifcool.denver;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,9 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -41,6 +38,7 @@ public class RiwayatActivity extends AppCompatActivity implements SharedPreferen
     int months = 0;
     int days = 0;
 
+    private ConstraintLayout emptyView;
     private RecyclerView recycler_view;
 
     int umur;
@@ -61,6 +59,9 @@ public class RiwayatActivity extends AppCompatActivity implements SharedPreferen
         TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
         TextView umurAnak = (TextView) findViewById(R.id.umurTextView);
 
+        TextView testIntent = (TextView) findViewById(R.id.emptyViewTextView);
+
+        emptyView = (ConstraintLayout) findViewById(R.id.emptyView);
         //Define recycleview
         recycler_view = (RecyclerView) findViewById(R.id.my_recycler_view);
         recycler_view.setLayoutManager(new LinearLayoutManager(this));
@@ -151,6 +152,9 @@ public class RiwayatActivity extends AppCompatActivity implements SharedPreferen
                             }
 
                             Parent.add(new RiwayatParent(ParentKey, Child));
+
+
+                            emptyView.setVisibility(Parent.isEmpty() ? View.VISIBLE : View.GONE);
 
                             RiwayatActivity.DocExpandableRecyclerAdapter adapter = new RiwayatActivity.DocExpandableRecyclerAdapter(Parent);
 
