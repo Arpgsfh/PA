@@ -28,7 +28,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.ProfilAnakViewHolder> {
+
+
+    public SharedPreferences preferences;
+    String idProfil;
 
     DatabaseReference databaseProfilAnak;
     DatabaseReference databaseRiwayat;
@@ -43,12 +49,14 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
     private Context context;
     private String id;
     private List<ProfilAnak> profilAnakList;
+    private int menu;
     public static final String PROFILE = "profile";
 
-    public ProfilAnakAdapter(Context context, String id, List<ProfilAnak> profilAnakList) {
+    public ProfilAnakAdapter(Context context, String id, List<ProfilAnak> profilAnakList, int menu) {
         this.context = context;
         this.id = id;
         this.profilAnakList = profilAnakList;
+        this.menu = menu;
     }
 
     @NonNull
@@ -118,7 +126,6 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
                 builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         if (titleBox.getText().toString().isEmpty() || tglLahirBox.getText(). toString().isEmpty()){
                             Toast.makeText(context, "Data tidak boleh kosong", Toast.LENGTH_SHORT).show();
                         }else {
@@ -132,6 +139,19 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
 
                             ProfilAnak profilAnak = new ProfilAnak(id, nama, umur);
                             databaseProfilAnak.child(id).setValue(profilAnak);
+
+                            preferences = context.getSharedPreferences(PROFILE, MODE_PRIVATE);
+                            idProfil = preferences.getString("ID", null);
+
+                            if (idProfil.equals(currentProfil.getId())){
+                                SharedPreferences.Editor editor = context.getSharedPreferences(PROFILE, MODE_PRIVATE).edit();
+                                editor.putString("ID", currentProfil.getId());
+                                editor.putString("NAMA", nama);
+                                editor.putInt("TAHUN", tahun);
+                                editor.putInt("BULAN", bulan);
+                                editor.putInt("HARI", hari);
+                                editor.commit();
+                            }
                         }
                     }
                 });
@@ -149,7 +169,17 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentProfil.getId();
+
+                preferences = context.getSharedPreferences(PROFILE, MODE_PRIVATE);
+                idProfil = preferences.getString("ID", null);
+
+                if (idProfil.equals(currentProfil.getId())){
+                    SharedPreferences.Editor editor = context.getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
+                    editor.clear().commit();
+                    editor.putString("ID", "KOSONG");
+                    editor.commit();
+                }
+
                 databaseProfilAnak.child(currentProfil.id).removeValue();
                 databaseRiwayat.child(currentProfil.id).removeValue();
                 databaseDetail.child(currentProfil.id).removeValue();
@@ -160,14 +190,37 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = context.getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
+
+                SharedPreferences.Editor editor = context.getSharedPreferences(PROFILE, MODE_PRIVATE).edit();
                 editor.putString("ID", currentProfil.getId());
                 editor.putString("NAMA", currentProfil.getNama());
                 editor.putInt("TAHUN", currentProfil.getTglLahir().tahun);
                 editor.putInt("BULAN", currentProfil.getTglLahir().bulan);
                 editor.putInt("HARI", currentProfil.getTglLahir().hari);
                 editor.commit();
-                ((Activity)context).finish();
+
+                switch (menu){
+                    case 0:
+                        ((Activity)context).finish();
+                        break;
+                    case 1:
+                        ((Activity)context).finish();
+                        Intent testIntent = new Intent(context, PilihUmurActivity.class);
+                        testIntent.putExtra("MENU",1);
+                        context.startActivity(testIntent);
+                        break;
+                    case 2:
+                        ((Activity)context).finish();
+                        Intent stimulasiIntent = new Intent(context, PilihUmurActivity.class);
+                        stimulasiIntent.putExtra("MENU",2);
+                        context.startActivity(stimulasiIntent);
+                        break;
+                    case 3:
+                        ((Activity)context).finish();
+                        Intent riwayatIntent = new Intent(context, RiwayatActivity.class);
+                        context.startActivity(riwayatIntent);
+                        break;
+                }
             }
         });
 

@@ -2,6 +2,7 @@ package org.d3ifcool.denver;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -47,6 +48,7 @@ public class ProfilAnakActivity extends AppCompatActivity {
     FloatingActionButton tambah;
 
     String id;
+    int menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +58,12 @@ public class ProfilAnakActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         id = acct.getId();
 
+        Intent intent = getIntent();
+        menu = intent.getIntExtra("MENU",0);
+
         databaseProfilAnak = FirebaseDatabase.getInstance().getReference("Profil Anak").child(id);
 
-        mAdapter = new ProfilAnakAdapter(this, id, profilAnaks);
+        mAdapter = new ProfilAnakAdapter(this, id, profilAnaks, menu);
 
         emptyView = (ConstraintLayout) findViewById(R.id.emptyView);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerProfil);
@@ -157,11 +162,11 @@ public class ProfilAnakActivity extends AppCompatActivity {
                 emptyView.setVisibility(profilAnaks.isEmpty() ? View.VISIBLE : View.GONE);
 
                 if (this != null){
-                    ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, id, profilAnaks);
+                    ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, id, profilAnaks, menu);
                     recyclerView.setAdapter(profilAnakAdapter);
                 }
 
-                ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, id, profilAnaks);
+                ProfilAnakAdapter profilAnakAdapter = new ProfilAnakAdapter(ProfilAnakActivity.this, id, profilAnaks, menu);
                 recyclerView.setAdapter(profilAnakAdapter);
             }
 

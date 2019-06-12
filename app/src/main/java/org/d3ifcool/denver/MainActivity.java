@@ -105,26 +105,45 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent testIntent = new Intent(MainActivity.this, PilihUmurActivity.class);
-                testIntent.putExtra("MENU",1);
-                startActivity(testIntent);
+                if (idProfil==null || idProfil.equalsIgnoreCase("KOSONG")){
+                    Intent profilAnakIntent = new Intent(MainActivity.this, ProfilAnakActivity.class);
+                    profilAnakIntent.putExtra("MENU",1);
+                    startActivity(profilAnakIntent);
+                }else {
+                    Intent testIntent = new Intent(MainActivity.this, PilihUmurActivity.class);
+                    testIntent.putExtra("MENU",1);
+                    startActivity(testIntent);
+                }
+
             }
         });
 
         stimulasiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent stimulasiIntent = new Intent(MainActivity.this, PilihUmurActivity.class);
-                stimulasiIntent.putExtra("MENU",2);
-                startActivity(stimulasiIntent);
+                if (idProfil==null || idProfil.equalsIgnoreCase("KOSONG")){
+                    Intent profilAnakIntent = new Intent(MainActivity.this, ProfilAnakActivity.class);
+                    profilAnakIntent.putExtra("MENU",2);
+                    startActivity(profilAnakIntent);
+                }else {
+                    Intent stimulasiIntent = new Intent(MainActivity.this, PilihUmurActivity.class);
+                    stimulasiIntent.putExtra("MENU", 2);
+                    startActivity(stimulasiIntent);
+                }
             }
         });
 
         riwayatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent riwayatIntent = new Intent(MainActivity.this, RiwayatActivity.class);
-                startActivity(riwayatIntent);
+                if (idProfil==null || idProfil.equalsIgnoreCase("KOSONG")){
+                    Intent profilAnakIntent = new Intent(MainActivity.this, ProfilAnakActivity.class);
+                    profilAnakIntent.putExtra("MENU",3);
+                    startActivity(profilAnakIntent);
+                }else {
+                    Intent riwayatIntent = new Intent(MainActivity.this, RiwayatActivity.class);
+                    startActivity(riwayatIntent);
+                }
             }
         });
 
@@ -157,12 +176,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intentLogin);
             finish();
-
-        }else {
-            if (idProfil==null){
-                Intent intentProfil = new Intent(MainActivity.this, ProfilAnakActivity.class);
-                startActivity(intentProfil);
-            }
         }
     }
 
@@ -189,14 +202,23 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         TextView umurAnak = (TextView) findViewById(R.id.umurTextView);
 
         idProfil = preferences.getString("ID", null);
-        namaProfile = preferences.getString("NAMA", null);
-        tahun = preferences.getInt("TAHUN", 0);
-        bulan = preferences.getInt("BULAN", 0);
-        hari = preferences.getInt("HARI", 0);
 
-        namaAnak.setText(namaProfile);
-        AgeCalculator();
-        umurAnak.setText("Umur "+months+" Bulan");
+        if (idProfil==null || idProfil.equalsIgnoreCase("KOSONG")){
+            namaAnak.setText("Profil Anak");
+            umurAnak.setVisibility(View.GONE);
+        }else {
+            namaProfile = preferences.getString("NAMA", null);
+            tahun = preferences.getInt("TAHUN", 0);
+            bulan = preferences.getInt("BULAN", 0);
+            hari = preferences.getInt("HARI", 0);
+
+            namaAnak.setText(namaProfile);
+            AgeCalculator();
+            umurAnak.setVisibility(View.VISIBLE);
+            umurAnak.setText("Umur "+months+" Bulan");
+        }
+
+
 
         preferences.registerOnSharedPreferenceChangeListener(MainActivity.this);
     }
