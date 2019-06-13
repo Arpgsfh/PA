@@ -41,6 +41,7 @@ public class PenilaianActivity extends AppCompatActivity {
     int nKasar, nHalus, nBicara, nSosialisasi;
     int tKasar=0, tHalus=0, tBicara=0, tSosialisasi=0;
 
+    int jumlahSoal;
     String[] rPertanyaan;
     int[] rJawaban;
     boolean lulus = false;
@@ -75,6 +76,7 @@ public class PenilaianActivity extends AppCompatActivity {
 
         umur = intent.getIntExtra("UMUR",0);
 
+        jumlahSoal = intent.getIntExtra("JP", 0);
         rPertanyaan = intent.getStringArrayExtra("RP");
         rJawaban = intent.getIntArrayExtra("RJ");
 
@@ -88,7 +90,7 @@ public class PenilaianActivity extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.button);
 
-        skor.setText(nilai+" /10");
+        skor.setText(nilai+" /"+jumlahSoal);
         skorKasar.setText(nKasar+" /"+jKasar);
         skorHalus.setText(nHalus+" /"+jHalus);
         skorBicara.setText(nBicara+" /"+jBicara);
@@ -142,11 +144,11 @@ public class PenilaianActivity extends AppCompatActivity {
 
                 DatabaseReference myRef = database.getReference("Riwayat").child(idAkun).child(idProfil).child(String.valueOf(umur));
                 String id = myRef.push().getKey();
-                RiwayatChild riwayat = new RiwayatChild(id, namaProfile, tanggal, ket, nilai, nKasar, nHalus, nBicara, nSosialisasi, jKasar, jHalus, jBicara, jSosialisasi);
+                RiwayatChild riwayat = new RiwayatChild(id, namaProfile, tanggal, ket, nilai, jumlahSoal, nKasar, nHalus, nBicara, nSosialisasi, jKasar, jHalus, jBicara, jSosialisasi);
                 myRef.child(id).setValue(riwayat);
 
                 DatabaseReference databaseDetail = database.getReference("Detail").child(idAkun).child(idProfil).child(id);
-                for (int i=0; i< 10; i++){
+                for (int i=0; i< jumlahSoal; i++){
                     Report report = new Report(rPertanyaan[i], rJawaban[i]);
                     databaseDetail.child(String.valueOf(i)).setValue(report);
                 }

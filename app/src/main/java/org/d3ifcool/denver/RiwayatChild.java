@@ -5,19 +5,20 @@ import android.os.Parcelable;
 
 public class RiwayatChild implements Parcelable {
     String id, nama, tanggal, ket;
-    int nilai;
+    int nilai, jumlahSoal;
     int nKasar, nHalus, nBicara, nSosialisasi;
     int jKasar, jHalus, jBicara, jSosialisasi;
 
     public RiwayatChild() {
     }
 
-    public RiwayatChild(String id, String nama, String tanggal, String ket, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
+    public RiwayatChild(String id, String nama, String tanggal, String ket, int nilai, int jumlahSoal, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
         this.id = id;
         this.nama = nama;
         this.tanggal = tanggal;
         this.ket = ket;
         this.nilai = nilai;
+        this.jumlahSoal = jumlahSoal;
         this.nKasar = nKasar;
         this.nHalus = nHalus;
         this.nBicara = nBicara;
@@ -33,6 +34,7 @@ public class RiwayatChild implements Parcelable {
         tanggal = in.readString();
         ket = in.readString();
         nilai = in.readInt();
+        jumlahSoal = in.readInt();
         nKasar = in.readInt();
         nHalus = in.readInt();
         nBicara = in.readInt();
@@ -89,6 +91,14 @@ public class RiwayatChild implements Parcelable {
 
     public void setNilai(int nilai) {
         this.nilai = nilai;
+    }
+
+    public int getJumlahSoal() {
+        return jumlahSoal;
+    }
+
+    public void setJumlahSoal(int jumlahSoal) {
+        this.jumlahSoal = jumlahSoal;
     }
 
     public int getnKasar() {
@@ -167,6 +177,7 @@ public class RiwayatChild implements Parcelable {
         parcel.writeString(nama);
         parcel.writeString(tanggal);
         parcel.writeInt(nilai);
+        parcel.writeInt(jumlahSoal);
         parcel.writeInt(nKasar);
         parcel.writeInt(nHalus);
         parcel.writeInt(nBicara);

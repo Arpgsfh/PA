@@ -29,10 +29,10 @@ public class RiwayatChildViewHolder extends ChildViewHolder {
 
     }
 
-    public void onBind(String nama, String tanggal, String ket, int nilai, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
+    public void onBind(String nama, String tanggal, String ket, int nilai, int jumlahSoal, int nKasar, int nHalus, int nBicara, int nSosialisasi, int jKasar, int jHalus, int jBicara, int jSosialisasi) {
         listChildNama.setText(ket);
         listChildTanggal.setText(tanggal);
-        listChildNilai.setText(String.valueOf(nilai)+" /10");
+        listChildNilai.setText(String.valueOf(nilai)+" /"+String.valueOf(jumlahSoal));
         listChildNK.setText(String.valueOf(nKasar+" /"+jKasar));
         listChildNH.setText(String.valueOf(nHalus+" /"+jHalus));
         listChildNB.setText(String.valueOf(nBicara+" /"+jBicara));

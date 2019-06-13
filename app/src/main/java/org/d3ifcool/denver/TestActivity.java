@@ -51,6 +51,8 @@ public class TestActivity extends AppCompatActivity {
     String rPertanyaan[] = new String[10];
     int rJawaban[] = new int[10];
 
+    int jumlahSoal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,8 @@ public class TestActivity extends AppCompatActivity {
         Intent intent = getIntent();
         umur = intent.getIntExtra("UMUR",0);
 
-        setPertanyaan(nomor);
+        hitungSoal();
+        setPertanyaan(nomor, jumlahSoal);
 
         mProgressBar = (ProgressBar) findViewById(R.id.loadingBar);
         textViewRefresh = (TextView) findViewById(R.id.textViewRefresh);
@@ -108,7 +111,7 @@ public class TestActivity extends AppCompatActivity {
                 if (cekKoneksi()){
                     textViewRefresh.setVisibility(View.GONE);
                     textViewKoneksi.setVisibility(View.GONE);
-                    setPertanyaan(nomor);
+                    setPertanyaan(nomor, jumlahSoal);
                 }else {
                     textViewRefresh.setVisibility(View.VISIBLE);
                     textViewKoneksi.setVisibility(View.VISIBLE);
@@ -129,7 +132,7 @@ public class TestActivity extends AppCompatActivity {
                 if (cekKoneksi()){
                     textViewRefresh.setVisibility(View.GONE);
                     textViewKoneksi.setVisibility(View.GONE);
-                    setPertanyaan(nomor);
+                    setPertanyaan(nomor, jumlahSoal);
                 }else {
                     textViewRefresh.setVisibility(View.VISIBLE);
                     textViewKoneksi.setVisibility(View.VISIBLE);
@@ -143,7 +146,7 @@ public class TestActivity extends AppCompatActivity {
                 if (cekKoneksi()){
                     textViewRefresh.setVisibility(View.GONE);
                     textViewKoneksi.setVisibility(View.GONE);
-                    setPertanyaan(nomor);
+                    setPertanyaan(nomor, jumlahSoal);
                 }else {
                     textViewRefresh.setVisibility(View.VISIBLE);
                     textViewKoneksi.setVisibility(View.VISIBLE);
@@ -152,27 +155,45 @@ public class TestActivity extends AppCompatActivity {
         });
     }
 
-    private void setPertanyaan(final int nomor){
-        if (nomor<=10){
+    private void hitungSoal(){
+        DatabaseReference cek = database.getReference("Test").child(String.valueOf(umur));
+        cek.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // get total available quest
+                jumlahSoal = (int) dataSnapshot.getChildrenCount()-1;
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    private void setPertanyaan(final int nomor, final int jumlahSoal){
+
+        if (nomor<=jumlahSoal){
             DatabaseReference myRef = database.getReference("Test").child(String.valueOf(umur)).child(String.valueOf(nomor));
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                     if (mProgressBar != null) {
                         mProgressBar.setVisibility(View.GONE);
                     }
 
                     Test test = dataSnapshot.getValue(Test.class);
 
-                    if (test.imageUrl!=null){
-                        Glide
-                                .with(TestActivity.this)
-                                .load(test.getImageUrl())
-                                .into(gmbr);
-                    }
+                    Glide
+                            .with(TestActivity.this)
+                            .load(test.getImageUrl())
+                            .into(gmbr);
 
-                    noPertanyaan.setText(String.valueOf(nomor)+" /10");
+                    if (nomor==0){
+                        noPertanyaan.setText("Persiapan");
+                    }else {
+                        noPertanyaan.setText(String.valueOf(nomor)+" /"+String.valueOf(jumlahSoal));
+                    }
                     pertanyaan.setText(test.pertanyaan.replace("_b","\n"));
 
                     kategori = test.kategori;
@@ -236,6 +257,7 @@ public class TestActivity extends AppCompatActivity {
 
             intent.putExtra("UMUR",umur);
 
+            intent.putExtra("JP", jumlahSoal);
             intent.putExtra("RP", rPertanyaan);
             intent.putExtra("RJ", rJawaban);
             startActivity(intent);
