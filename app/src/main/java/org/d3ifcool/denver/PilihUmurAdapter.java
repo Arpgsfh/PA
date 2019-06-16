@@ -23,7 +23,7 @@ public class PilihUmurAdapter extends BaseAdapter {
     private Context mContext;
     private int months;
     int menu;
-    private List<Boolean> lulus;
+    private List<Integer> lulus;
 
     public PilihUmurAdapter() {
     }
@@ -34,7 +34,7 @@ public class PilihUmurAdapter extends BaseAdapter {
         this.menu = menu;
     }
 
-    public PilihUmurAdapter(Context mContext, int months, int menu, List<Boolean> lulus) {
+    public PilihUmurAdapter(Context mContext, int months, int menu, List<Integer> lulus) {
         this.mContext = mContext;
         this.months = months;
         this.menu = menu;
@@ -76,9 +76,14 @@ public class PilihUmurAdapter extends BaseAdapter {
 
                 }else {
 
-                    if (lulus.get(position)==true){
+                    if (lulus.get(position)==1){
+                        imageView.setImageResource(R.mipmap.ic_check);
                         imageView.setVisibility(View.VISIBLE);
-                    }else {
+                    }else if (lulus.get(position)==2){
+                        imageView.setImageResource(R.mipmap.ic_warning);
+                        imageView.setVisibility(View.VISIBLE);
+                    } else {
+                        imageView.setImageResource(0);
                         imageView.setVisibility(View.INVISIBLE);
                     }
 
@@ -97,6 +102,7 @@ public class PilihUmurAdapter extends BaseAdapter {
                 grid.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ((Activity)mContext).finish();
                         Intent intentStimulasi = new Intent(mContext, StimulasiActivity.class);
                         intentStimulasi.putExtra("UMUR",Integer.valueOf(mThumbIds[position]));
                         mContext.startActivity(intentStimulasi);

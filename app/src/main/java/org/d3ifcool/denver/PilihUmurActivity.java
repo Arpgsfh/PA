@@ -47,11 +47,11 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
             "30", "36", "42", "48",
             "54", "60", "66", "72");
 
-    List<Boolean> lulusList = Arrays.asList(
-            false, false, false, false,
-            false, false, false, false,
-            false, false, false, false,
-            false, false, false, false);
+    List<Integer> lulusList = Arrays.asList(
+            0, 0, 0, 0,
+            0, 0, 0, 0,
+            0, 0, 0, 0,
+            0, 0, 0, 0);
 
     public static final String PROFILE = "profile";
     String idProfil;
@@ -85,18 +85,15 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
         Intent intent = getIntent();
         menu = intent.getIntExtra("MENU",0);
 
+        TextView textView9 = (TextView) findViewById(R.id.textView9);
+        if (menu==1){
+            textView9.setText("Pilih umur skrining");
+        }else if (menu==2){
+            textView9.setText("Pilih umur stimulasi");
+        }
         gridview = (GridView) findViewById(R.id.gridView);
 
         loadDatabase();
-
-        profilAnak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(PilihUmurActivity.this, ProfilAnakActivity.class);
-                startActivity(intent1);
-            }
-        });
-
     }
 
     public void loadDatabase(){
@@ -106,10 +103,10 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Boolean pass;
+                int pass;
                 for (DataSnapshot profilAnakSnapshot : dataSnapshot.getChildren()){
-                    pass = profilAnakSnapshot.getValue(Boolean.class);
-                    if (pass==true){
+                    pass = profilAnakSnapshot.getValue(Integer.class);
+                    if (pass == 1 || pass == 2){
                         lulusList.set(mThumbs.indexOf(profilAnakSnapshot.getKey()), pass);
                     }
                 }
@@ -154,7 +151,7 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
 
         namaAnak.setText(namaProfile);
         AgeCalculator();
-        umurAnak.setText(months+" Bulan");
+        umurAnak.setText("Usia "+months+" bulan");
 
         gridview = (GridView) findViewById(R.id.gridView);
         loadDatabase();

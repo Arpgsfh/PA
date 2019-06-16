@@ -43,7 +43,7 @@
         <activity android:name=".PilihUmurActivity" />
         <activity
             android:name=".TestActivity"
-            android:label="Test"
+            android:label="Skrining"
             android:theme="@style/AppThemeAction" />
         <activity android:name=".PenilaianActivity" />
         <activity android:name=".LoginActivity" />

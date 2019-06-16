@@ -194,7 +194,8 @@ public class TestActivity extends AppCompatActivity {
                     }else {
                         noPertanyaan.setText(String.valueOf(nomor)+" /"+String.valueOf(jumlahSoal));
                     }
-                    pertanyaan.setText(test.pertanyaan.replace("_b","\n"));
+                    pertanyaan.setText(String.valueOf(test.getPertanyaan().replaceAll("_b", "\n")));
+
 
                     kategori = test.kategori;
                     switch (kategori){

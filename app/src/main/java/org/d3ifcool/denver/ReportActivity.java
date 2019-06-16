@@ -50,7 +50,6 @@ public class ReportActivity extends AppCompatActivity {
 
         databasePertanyaan = FirebaseDatabase.getInstance().getReference("Detail").child(id).child(idProfil).child(childIndex);
 
-
         mAdapter = new ReportAdapter(this, reportList);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerReport);

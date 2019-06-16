@@ -11,10 +11,12 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.Auth;
@@ -60,9 +62,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         ConstraintLayout profilAnak = (ConstraintLayout) findViewById(R.id.profilAnak);
-        ImageView signOut = (ImageView) findViewById(R.id.button_sign_out);
+        final ImageView signOut = (ImageView) findViewById(R.id.button_sign_out);
         TextView akun = (TextView) findViewById(R.id.akun);
-        TextView logOut = (TextView) findViewById(R.id.logOut);
         TextView namaProfileTextButton = (TextView) findViewById(R.id.namaAnakTextView);
         Button testButton = (Button) findViewById(R.id.testBtn);
         Button stimulasiButton = (Button) findViewById(R.id.stimulasiBtn);
@@ -87,18 +88,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             public void onClick(View v) {
                 Intent intent1 = new Intent(MainActivity.this, ProfilAnakActivity.class);
                 startActivity(intent1);
-            }
-        });
-
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor editor = getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
-                editor.clear().commit();
-                signOut();
-                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-                finish();
             }
         });
 
@@ -154,6 +143,39 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 startActivity(tentangIntent);
             }
         });
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, signOut);
+
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.logOut:
+                                SharedPreferences.Editor editor = getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
+                                editor.clear().commit();
+                                signOut();
+                                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(loginIntent);
+                                finish();
+                                return true;
+                        }
+
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
+
+
+
+
+
+
 
     }
 

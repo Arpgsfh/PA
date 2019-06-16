@@ -44,7 +44,7 @@ public class PenilaianActivity extends AppCompatActivity {
     int jumlahSoal;
     String[] rPertanyaan;
     int[] rJawaban;
-    boolean lulus = false;
+    int lulus = 0;
 
     String idAkun;
 
@@ -110,12 +110,12 @@ public class PenilaianActivity extends AppCompatActivity {
         }
 
         if (nilai>8){
-            lulus=true;
+            lulus=1;
             penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.green));
             penilaian.setText("Selamat, perkembangan anak Anda Sesuai.");
             button.setText("Lanjut");
-            intent1 = new Intent(PenilaianActivity.this, MainActivity.class);
         }else if (nilai>6){
+            lulus=2;
             penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.yellow));
             penilaian.setText("Pantau terus perkembangan anak Anda. Cari Kemungkinan Penyakit, ulangi test 2 Minggu lagi. Jika masih Meragukan, segera rujuk ke RS atau Poli Anak");
             intent1 = new Intent(PenilaianActivity.this, StimulasiActivity.class);
@@ -125,6 +125,7 @@ public class PenilaianActivity extends AppCompatActivity {
             intent1.putExtra("BB",tBicara);
             intent1.putExtra("SK",tSosialisasi);
         }else{
+            lulus=2;
             penilaianCardView.setCardBackgroundColor(getResources().getColor(R.color.red));
             penilaian.setText("Ada penyimpangan dalam perkembangan anak Anda, segera rujuk ke RS atau Poli Anak");
             intent1 = new Intent(PenilaianActivity.this, StimulasiActivity.class);
@@ -156,8 +157,12 @@ public class PenilaianActivity extends AppCompatActivity {
                 DatabaseReference databaseUmur = database.getReference("Umur").child(idAkun).child(idProfil).child(String.valueOf(umur));
                 databaseUmur.setValue(lulus);
 
-                startActivity(intent1);
-                finish();
+                if (lulus==1){
+                    finish();
+                }else {
+                    startActivity(intent1);
+                    finish();
+                }
             }
         });
 

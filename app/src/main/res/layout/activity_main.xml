@@ -84,19 +84,6 @@
         app:layout_constraintStart_toEndOf="@+id/button_sign_out"
         app:layout_constraintTop_toTopOf="@+id/button_sign_out" />
 
-    <TextView
-        android:id="@+id/logOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_bg_2"
-        android:drawableRight="@drawable/ic_exit_to_app_black_24dp"
-        android:drawablePadding="3dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:text="LogOut"
-        app:layout_constraintStart_toStartOf="@+id/akun"
-        app:layout_constraintTop_toBottomOf="@+id/akun" />
-
     <Button
         android:id="@+id/testBtn"
         android:layout_width="150dp"
@@ -105,7 +92,7 @@
         android:background="@drawable/button_bg"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="Test"
+        android:text="Skrining"
         android:textAllCaps="false"
         android:textColor="#7D7D7D"
         android:textSize="30sp"
