@@ -151,7 +151,7 @@ public class PilihUmurActivity extends AppCompatActivity implements SharedPrefer
 
         namaAnak.setText(namaProfile);
         AgeCalculator();
-        umurAnak.setText("Usia "+months+" bulan");
+        umurAnak.setText("Umur "+months+" bulan");
 
         gridview = (GridView) findViewById(R.id.gridView);
         loadDatabase();

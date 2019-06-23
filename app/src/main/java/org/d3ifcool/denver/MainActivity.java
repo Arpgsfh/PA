@@ -36,6 +36,10 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
+    public static final String PASSCODE = "passcode";
+    String pin;
+    Boolean pass=false;
+
     public static final String PROFILE = "profile";
     String idProfil;
     String namaProfile;
@@ -63,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         ConstraintLayout profilAnak = (ConstraintLayout) findViewById(R.id.profilAnak);
         final ImageView signOut = (ImageView) findViewById(R.id.button_sign_out);
-        TextView akun = (TextView) findViewById(R.id.akun);
         TextView namaProfileTextButton = (TextView) findViewById(R.id.namaAnakTextView);
         Button testButton = (Button) findViewById(R.id.testBtn);
         Button stimulasiButton = (Button) findViewById(R.id.stimulasiBtn);
@@ -74,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
-            akun.setText(acct.getEmail());;
-
             Uri personPhoto = acct.getPhotoUrl();
 
             Picasso.with(MainActivity.this)
@@ -198,6 +199,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intentLogin);
             finish();
+        }else{
+            Intent intent = getIntent();
+            pass = intent.getBooleanExtra("PASS", false);
+
+            if (pass==false){
+                Intent intentPass = new Intent(MainActivity.this, PasscodeActivity.class);
+                startActivity(intentPass);
+                finish();
+            }
         }
     }
 
@@ -219,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     public void loadProfilPreferences(){
+
         SharedPreferences preferences = getSharedPreferences(PROFILE, MODE_PRIVATE);
         TextView namaAnak = (TextView) findViewById(R.id.namaAnakTextView);
         TextView umurAnak = (TextView) findViewById(R.id.umurTextView);

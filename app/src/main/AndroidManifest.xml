@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TentangActivity"></activity>
+        <activity android:name=".PasscodeActivity"></activity>
+        <activity android:name=".TentangActivity" />
         <activity
             android:name=".ReportActivity"
             android:label="Detail Riwayat"
@@ -32,7 +33,7 @@
             android:name=".StimulasiActivity"
             android:label="Stimulasi"
             android:theme="@style/AppThemeAction" />
-        <activity android:name=".RiwayatActivity"></activity>
+        <activity android:name=".RiwayatActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

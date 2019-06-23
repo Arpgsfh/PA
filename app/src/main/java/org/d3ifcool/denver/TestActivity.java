@@ -1,18 +1,32 @@
 package org.d3ifcool.denver;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +40,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+
 public class TestActivity extends AppCompatActivity {
 
     ProgressBar mProgressBar;
@@ -36,6 +52,8 @@ public class TestActivity extends AppCompatActivity {
     TextView noPertanyaan;
     TextView pertanyaan;
     ImageView gmbr;
+    ImageView canvas;
+    Button draw;
     Button btnIya;
     Button btnTidak;
 
@@ -52,6 +70,15 @@ public class TestActivity extends AppCompatActivity {
     int rJawaban[] = new int[10];
 
     int jumlahSoal;
+
+
+
+    DrawingView dv;
+    private Paint mPaint;
+
+    private Bitmap mBitmap;
+    private Canvas mCanvas;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +101,51 @@ public class TestActivity extends AppCompatActivity {
         noPertanyaan = (TextView) findViewById(R.id.noPertanyaan);
         pertanyaan = (TextView) findViewById(R.id.pertanyaan);
         gmbr = (ImageView) findViewById(R.id.gmbrPertanyaan);
+        canvas = (ImageView) findViewById(R.id.canvas);
+        draw = (Button) findViewById(R.id.draw);
         btnIya = (Button) findViewById(R.id.buttonIya);
         btnTidak = (Button) findViewById(R.id.buttonTdk);
+
+        draw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TestActivity.this);
+                builder.setTitle("Menggambar");
+
+                LinearLayout layout = new LinearLayout(TestActivity.this);
+                layout.setOrientation(LinearLayout.VERTICAL);
+
+                dv = new DrawingView(TestActivity.this);
+                mPaint = new Paint();
+                mPaint.setAntiAlias(true);
+                mPaint.setDither(true);
+                mPaint.setColor(Color.BLACK);
+                mPaint.setStyle(Paint.Style.STROKE);
+                mPaint.setStrokeJoin(Paint.Join.ROUND);
+                mPaint.setStrokeCap(Paint.Cap.ROUND);
+                mPaint.setStrokeWidth(12);
+
+                layout.addView(dv);
+
+                builder.setView(layout); // Again this is a set method, not add
+
+                builder.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        canvas.setBackgroundColor(Color.WHITE);
+                        canvas.setImageBitmap(mBitmap);
+                    }
+                });
+                builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
 
         btnIya.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +224,8 @@ public class TestActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void hitungSoal(){
         DatabaseReference cek = database.getReference("Test").child(String.valueOf(umur));
@@ -270,11 +342,110 @@ public class TestActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.VISIBLE);
         btnIya.setVisibility(View.INVISIBLE);
         btnTidak.setVisibility(View.INVISIBLE);
+        canvas.setImageBitmap(null);
+
+
     }
 
     public boolean cekKoneksi(){
         ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo nInfo = cm.getActiveNetworkInfo();
         return nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+    }
+
+    public class DrawingView extends View {
+
+        public int width;
+        public  int height;
+        private Path mPath;
+        private Paint mBitmapPaint;
+        Context context;
+        private Paint circlePaint;
+        private Path circlePath;
+
+        public DrawingView(Context c) {
+            super(c);
+            context=c;
+            mPath = new Path();
+            mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+            circlePaint = new Paint();
+            circlePath = new Path();
+            circlePaint.setAntiAlias(true);
+            circlePaint.setColor(Color.BLUE);
+            circlePaint.setStyle(Paint.Style.STROKE);
+            circlePaint.setStrokeJoin(Paint.Join.MITER);
+            circlePaint.setStrokeWidth(4f);
+        }
+
+        @Override
+        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+            super.onSizeChanged(w, h, oldw, oldh);
+
+            mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+            mCanvas = new Canvas(mBitmap);
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+
+            canvas.drawBitmap( mBitmap, 0, 0, mBitmapPaint);
+            canvas.drawPath( mPath,  mPaint);
+            canvas.drawPath( circlePath,  circlePaint);
+        }
+
+        private float mX, mY;
+        private static final float TOUCH_TOLERANCE = 4;
+
+        private void touch_start(float x, float y) {
+            mPath.reset();
+            mPath.moveTo(x, y);
+            mX = x;
+            mY = y;
+        }
+
+        private void touch_move(float x, float y) {
+            float dx = Math.abs(x - mX);
+            float dy = Math.abs(y - mY);
+            if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+                mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+                mX = x;
+                mY = y;
+
+                circlePath.reset();
+                circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
+            }
+        }
+
+        private void touch_up() {
+            mPath.lineTo(mX, mY);
+            circlePath.reset();
+            // commit the path to our offscreen
+            mCanvas.drawPath(mPath,  mPaint);
+            // kill this so we don't double draw
+            mPath.reset();
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            float x = event.getX();
+            float y = event.getY();
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    touch_start(x, y);
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    touch_move(x, y);
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    touch_up();
+                    invalidate();
+                    break;
+            }
+            return true;
+        }
     }
 }

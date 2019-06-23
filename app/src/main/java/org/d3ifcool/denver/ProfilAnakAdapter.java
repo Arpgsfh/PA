@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -170,20 +172,36 @@ public class ProfilAnakAdapter extends RecyclerView.Adapter<ProfilAnakAdapter.Pr
             @Override
             public void onClick(View v) {
 
-                preferences = context.getSharedPreferences(PROFILE, MODE_PRIVATE);
-                idProfil = preferences.getString("ID", null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Yakin ingin menghapus profil ini?");
 
-                if (idProfil.equals(currentProfil.getId())){
-                    SharedPreferences.Editor editor = context.getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
-                    editor.clear().commit();
-                    editor.putString("ID", "KOSONG");
-                    editor.commit();
-                }
+                builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        preferences = context.getSharedPreferences(PROFILE, MODE_PRIVATE);
+                        idProfil = preferences.getString("ID", null);
 
-                databaseProfilAnak.child(currentProfil.id).removeValue();
-                databaseRiwayat.child(currentProfil.id).removeValue();
-                databaseDetail.child(currentProfil.id).removeValue();
-                databaseUmur.child(currentProfil.id).removeValue();
+                        if (idProfil.equals(currentProfil.getId())){
+                            SharedPreferences.Editor editor = context.getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit();
+                            editor.clear().commit();
+                            editor.putString("ID", "KOSONG");
+                            editor.commit();
+                        }
+
+                        databaseProfilAnak.child(currentProfil.id).removeValue();
+                        databaseRiwayat.child(currentProfil.id).removeValue();
+                        databaseDetail.child(currentProfil.id).removeValue();
+                        databaseUmur.child(currentProfil.id).removeValue();
+                    }
+                });
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
             }
         });
 

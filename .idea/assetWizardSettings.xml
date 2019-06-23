@@ -51,11 +51,17 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="scalingPercent" value="62" />
                                               </map>
                                             </option>
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="foregroundImage" value="D:\doc\Semester 6\PA\assets\mom.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -94,8 +100,8 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="D:\doc\Semester 6\PA\assets\warning.png" />
-                                      <entry key="outputName" value="ic_warning" />
+                                      <entry key="imageAsset" value="D:\doc\Semester 6\PA\assets\edit.png" />
+                                      <entry key="outputName" value="ic_draw" />
                                     </map>
                                   </option>
                                 </PersistentState>
