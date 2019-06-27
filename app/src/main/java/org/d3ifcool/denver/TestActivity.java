@@ -196,6 +196,7 @@ public class TestActivity extends AppCompatActivity {
                     rPertanyaan[nomor-1] = pertanyaan.getText().toString();
                     rJawaban[nomor-1] = 0;
                 }
+
                 reset();
                 nomor++;
 
@@ -263,6 +264,7 @@ public class TestActivity extends AppCompatActivity {
 
                     if (nomor==0){
                         noPertanyaan.setText("Persiapan");
+
                     }else {
                         noPertanyaan.setText(String.valueOf(nomor)+" /"+String.valueOf(jumlahSoal));
                     }
@@ -300,11 +302,15 @@ public class TestActivity extends AppCompatActivity {
                         btnIya.setVisibility(View.GONE);
                         btnTidak.setVisibility(View.VISIBLE);
                         btnTidak.setText("Mulai");
+                        draw.setVisibility(View.GONE);
+                        canvas.setVisibility(View.GONE);
                     }else {
                         mProgressBar.setVisibility(View.GONE);
                         btnIya.setVisibility(View.VISIBLE);
                         btnTidak.setVisibility(View.VISIBLE);
                         btnTidak.setText("Tidak");
+                        draw.setVisibility(View.VISIBLE);
+                        canvas.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -342,7 +348,7 @@ public class TestActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.VISIBLE);
         btnIya.setVisibility(View.INVISIBLE);
         btnTidak.setVisibility(View.INVISIBLE);
-        canvas.setImageBitmap(null);
+        canvas.setImageResource(0);
 
 
     }
